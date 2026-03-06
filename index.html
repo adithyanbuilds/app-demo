@@ -96,6 +96,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
+        min-height: 100dvh;
         background:
           radial-gradient(
             ellipse 80% 60% at 15% 5%,
@@ -152,7 +153,14 @@
           var(--bg);
       }
 
-      /* ── DESKTOP: Phone mockup 390×844 centred ── */
+      /* ══════════════════════════════════════════════
+         PHONE MOCKUP — fully responsive scaling
+         Desktop:  390×844 centred, scales down with viewport
+         Tablet:   scales proportionally, never clips
+         Mobile:   full-screen, no address-bar overflow
+      ══════════════════════════════════════════════ */
+
+      /* Base phone: scale by the SMALLER of width or height axis */
       .phone {
         position: relative;
         display: flex;
@@ -160,9 +168,20 @@
         overflow: hidden;
         background: var(--bg);
         transition: background 0.7s;
-        width: 390px;
-        height: 844px;
-        border-radius: 50px;
+
+        /* Width: 390px but never wider than viewport - 32px */
+        width: min(390px, calc(100vw - 32px));
+
+        /* Height: 844px but never taller than viewport - 32px.
+           Also keep the natural 390:844 aspect ratio when width
+           is the limiting factor (narrow desktop windows / tablets) */
+        height: min(
+          844px,
+          calc(100dvh - 32px),
+          calc((min(390px, calc(100vw - 32px)) / 390) * 844)
+        );
+
+        border-radius: clamp(28px, 5vw, 50px);
         box-shadow:
           0 0 0 1.5px rgba(255, 255, 255, 0.07),
           0 0 0 9px rgba(255, 255, 255, 0.015),
@@ -170,10 +189,24 @@
           inset 0 1px 0 rgba(255, 255, 255, 0.06);
       }
 
-      /* ── MOBILE: Exact visible viewport, no address-bar overflow ──
-   100dvh = dynamic viewport height = visible area only (excludes browser chrome).
-   Fallback chain: 100dvh → JS sets height via --app-h → 100vh.
-── */
+      /* ── Tablet / small-laptop tweak (481–768 wide, or short screens) ── */
+      @media (max-height: 900px) and (min-width: 481px) {
+        .phone {
+          border-radius: clamp(20px, 3.5vh, 44px);
+        }
+      }
+
+      /* ── Very short screens (e.g. 768px tall laptops) ── */
+      @media (max-height: 720px) and (min-width: 481px) {
+        .phone {
+          border-radius: clamp(16px, 3vh, 36px);
+        }
+      }
+
+      /* ── MOBILE: exact visible viewport, no address-bar overflow ──
+         100dvh = dynamic viewport height = visible area only.
+         JS sets --app-h for precise override.
+      ── */
       @media (max-width: 480px) {
         body {
           align-items: flex-start;
@@ -182,9 +215,8 @@
         }
         .phone {
           width: 100vw;
-          /* dvh = visible area, not full including address bar */
           height: 100dvh;
-          height: var(--app-h, 100dvh); /* JS overrides --app-h precisely */
+          height: var(--app-h, 100dvh);
           border-radius: 0;
           box-shadow: none;
         }
@@ -1840,18 +1872,32 @@
       }
       .b-dots {
         display: flex;
-        gap: 4px;
+        gap: 3px;
+        align-items: center;
+        justify-content: center;
+        flex-wrap: nowrap;
+        max-width: 120px;
+        overflow: hidden;
       }
       .b-dot {
-        width: 6px;
-        height: 6px;
+        width: 5px;
+        height: 5px;
         border-radius: 50%;
-        background: rgba(255, 255, 255, 0.1);
-        transition: all 0.3s;
+        background: rgba(255, 255, 255, 0.12);
+        transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        flex-shrink: 0;
       }
       .b-dot.on {
-        background: #00aacc;
-        box-shadow: 0 0 5px #00aacc;
+        width: 14px;
+        border-radius: 3px;
+        background: linear-gradient(90deg, #ffd700, #ff9500);
+        box-shadow: 0 0 7px rgba(255, 180, 0, 0.7),
+                    0 0 2px rgba(255, 200, 0, 0.9);
+        animation: bdotPulse 1.4s ease-in-out infinite;
+      }
+      @keyframes bdotPulse {
+        0%, 100% { opacity: 1; box-shadow: 0 0 7px rgba(255,180,0,0.7); }
+        50%       { opacity: 0.75; box-shadow: 0 0 12px rgba(255,200,0,0.9); }
       }
       .b-brand {
         font-family: "JetBrains Mono", monospace;
@@ -1860,26 +1906,9 @@
         letter-spacing: 2px;
       }
 
-      /* ── SLIDE DOTS BELOW TV ── */
-      .slide-dots {
-        display: flex;
-        justify-content: center;
-        gap: 5px;
-        margin-top: 6px;
-      }
-      .sdot {
-        width: 5px;
-        height: 5px;
-        border-radius: 50%;
-        background: rgba(255, 255, 255, 0.1);
-        transition: all 0.3s;
-      }
-      .sdot.on {
-        background: var(--acc);
-        box-shadow: 0 0 6px var(--acc);
-        width: 14px;
-        border-radius: 3px;
-      }
+      /* ── SLIDE DOTS below TV — removed, now inside bezel ── */
+      .slide-dots { display: none; }
+      .sdot { display: none; }
 
       /* ── TICKER ── */
       .tv-ticker {
@@ -2148,6 +2177,12 @@
           opacity: 1;
           transform: translateY(0);
         }
+      }
+      @keyframes shimmerSlide {
+        0%   { left: -60%; opacity: 0; }
+        20%  { opacity: 1; }
+        60%  { opacity: 1; }
+        100% { left: 130%; opacity: 0; }
       }
 
       /* Phase A: spotlight cards */
@@ -3478,18 +3513,29 @@
       }
       .b-dots {
         display: flex;
-        gap: 4px;
+        gap: 3px;
+        align-items: center;
+        justify-content: center;
+        flex-wrap: nowrap;
+        max-width: 120px;
+        overflow: hidden;
       }
       .b-dot {
-        width: 7px;
-        height: 7px;
+        width: 5px;
+        height: 5px;
         border-radius: 50%;
-        background: #141428;
-        border: 1px solid rgba(255, 255, 255, 0.05);
+        background: rgba(255, 255, 255, 0.08);
+        border: none;
+        flex-shrink: 0;
+        transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
       }
       .b-dot.on {
-        background: #00d4ff;
-        box-shadow: 0 0 5px #00d4ff;
+        width: 14px;
+        border-radius: 3px;
+        background: linear-gradient(90deg, #ffd700, #ff9500);
+        box-shadow: 0 0 7px rgba(255, 180, 0, 0.7),
+                    0 0 2px rgba(255, 200, 0, 0.9);
+        animation: bdotPulse 1.4s ease-in-out infinite;
       }
       .b-brand {
         font-family: "JetBrains Mono", monospace;
@@ -3519,24 +3565,9 @@
         opacity: 0.2;
       }
 
-      .slide-dots {
-        display: flex;
-        justify-content: center;
-        gap: 5px;
-        padding: 5px 0 0;
-      }
-      .sdot {
-        width: 14px;
-        height: 3px;
-        border-radius: 2px;
-        background: rgba(255, 255, 255, 0.1);
-        transition: all 0.4s ease;
-      }
-      .sdot.on {
-        width: 22px;
-        background: #00d4ff;
-        box-shadow: 0 0 5px #00d4ff;
-      }
+      /* slide-dots removed — uses b-dots inside bezel */
+      .slide-dots { display: none; }
+      .sdot { display: none; }
 
       /* ══════════════════════════════════════════
    HOME CONTENT
@@ -4943,69 +4974,128 @@
         border-radius: 3px;
       }
 
+      /* ── PREMIUM HERO BANNER ── */
       .prem-top {
-        margin: 12px 14px 0;
+        margin: 10px 14px 0;
         border-radius: 20px;
-        padding: clamp(16px, 5vw, 22px) 17px;
+        padding: 14px 15px 12px;
         position: relative;
         overflow: hidden;
-        text-align: center;
         background: linear-gradient(
-          145deg,
-          rgba(255, 255, 255, 0.07),
-          rgba(255, 255, 255, 0.02)
+          135deg,
+          rgba(110, 63, 255, 0.18) 0%,
+          rgba(180, 79, 255, 0.12) 50%,
+          rgba(255, 149, 0, 0.09) 100%
         );
         backdrop-filter: blur(28px);
         -webkit-backdrop-filter: blur(28px);
-        border: 1px solid rgba(255, 215, 0, 0.17);
-        box-shadow: 0 14px 50px rgba(255, 165, 0, 0.12);
+        border: 1px solid rgba(255, 215, 0, 0.2);
+        box-shadow:
+          0 8px 32px rgba(110, 63, 255, 0.18),
+          inset 0 1px 0 rgba(255, 255, 255, 0.08);
       }
       .prem-top::before {
         content: "";
         position: absolute;
-        inset: 0;
-        background: radial-gradient(
-          ellipse at 50% 0%,
-          rgba(255, 200, 0, 0.1),
-          transparent 65%
-        );
+        top: -30px; right: -30px;
+        width: 120px; height: 120px;
+        background: radial-gradient(circle, rgba(255,180,0,0.15), transparent 65%);
         pointer-events: none;
       }
-      .prem-crown {
-        font-size: clamp(36px, 10vw, 44px);
-        filter: drop-shadow(0 0 16px rgba(255, 200, 0, 0.5));
-        animation: crownF 4s ease-in-out infinite;
+      .prem-top::after {
+        content: "";
+        position: absolute;
+        bottom: -20px; left: -20px;
+        width: 90px; height: 90px;
+        background: radial-gradient(circle, rgba(180,79,255,0.18), transparent 65%);
+        pointer-events: none;
+      }
+      /* Hero row: badge + text + PRO pill */
+      .prem-hero-row {
+        display: flex;
+        align-items: center;
+        gap: 11px;
         position: relative;
         z-index: 1;
+        margin-bottom: 11px;
       }
-      @keyframes crownF {
-        0%,
-        100% {
-          transform: rotate(-5deg);
-        }
-        50% {
-          transform: rotate(5deg) translateY(-7px);
-        }
+      .prem-hero-badge {
+        flex-shrink: 0;
+        width: 44px; height: 44px;
+        border-radius: 13px;
+        background: rgba(110, 63, 255, 0.25);
+        border: 1px solid rgba(180, 79, 255, 0.3);
+        display: flex; align-items: center; justify-content: center;
+        box-shadow: 0 4px 14px rgba(110,63,255,0.3);
+      }
+      .prem-hero-text { flex: 1; min-width: 0; }
+      .prem-hero-tag {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 8px; font-weight: 800;
+        letter-spacing: 1.5px;
+        color: rgba(255, 200, 0, 0.75);
+        margin-bottom: 2px;
       }
       .prem-title {
-        font-size: clamp(18px, 5.5vw, 22px);
+        font-size: clamp(15px, 4.5vw, 17px);
         font-weight: 900;
         font-family: "Syne", sans-serif;
-        margin-top: 8px;
-        position: relative;
-        z-index: 1;
         background: linear-gradient(135deg, #ffd700, #ff9500, #ff4fc8);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         background-clip: text;
+        letter-spacing: -0.3px;
+        line-height: 1.2;
       }
       .prem-sub {
-        font-size: 11.5px;
+        font-size: 9.5px;
         color: var(--mut2);
-        margin-top: 4px;
-        line-height: 1.6;
+        margin-top: 2px;
+        line-height: 1.4;
         position: relative;
         z-index: 1;
+      }
+      .prem-hero-pill {
+        flex-shrink: 0;
+        background: linear-gradient(135deg, #ffd700, #ff9500);
+        color: #000;
+        font-family: "Syne", sans-serif;
+        font-size: 10px; font-weight: 900;
+        letter-spacing: 1px;
+        padding: 5px 10px;
+        border-radius: 10px;
+        box-shadow: 0 3px 10px rgba(255,165,0,0.4);
+      }
+      /* Stat row */
+      .prem-stat-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        background: rgba(255,255,255,0.04);
+        border: 1px solid rgba(255,255,255,0.07);
+        border-radius: 12px;
+        padding: 9px 8px 8px;
+        position: relative; z-index: 1;
+      }
+      .prem-stat-item { text-align: center; flex: 1; }
+      .prem-stat-val {
+        font-family: "Syne", sans-serif;
+        font-size: 14px; font-weight: 900;
+        background: linear-gradient(135deg, #ffd700, #ff9500);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        letter-spacing: -0.5px;
+      }
+      .prem-stat-lbl {
+        font-size: 8px; font-weight: 700;
+        color: var(--mut); margin-top: 1px;
+        letter-spacing: 0.3px;
+      }
+      .prem-stat-div {
+        width: 1px; height: 28px;
+        background: rgba(255,255,255,0.07);
+        flex-shrink: 0;
       }
       .feat-list {
         display: flex;
@@ -6009,7 +6099,7 @@
                 <div class="tv-bar">
                   <div class="tv-ch">
                     <div class="live-pip"></div>
-                    UPSC·TV &nbsp;CH·01
+                    UPSC·TV &nbsp;<span id="tvChNum">CH·01</span>
                   </div>
                   <div class="tv-clock-el" id="tvClock">09:41:00</div>
                   <div class="tv-signal">
@@ -6116,13 +6206,7 @@
                 <div class="sp-dot"></div>
               </div>
               <div class="bezel-btm-center">
-                <div class="b-dots">
-                  <div class="b-dot on" id="bd0"></div>
-                  <div class="b-dot" id="bd1"></div>
-                  <div class="b-dot" id="bd2"></div>
-                  <div class="b-dot" id="bd3"></div>
-                  <div class="b-dot" id="bd4"></div>
-                </div>
+                <div class="b-dots" id="tvBDots"></div>
                 <div class="b-brand">UPSC·PREP·PRO</div>
               </div>
               <!-- speaker grille right -->
@@ -6136,13 +6220,7 @@
               </div>
             </div>
           </div>
-          <div class="slide-dots">
-            <div class="sdot on" id="pd0"></div>
-            <div class="sdot" id="pd1"></div>
-            <div class="sdot" id="pd2"></div>
-            <div class="sdot" id="pd3"></div>
-            <div class="sdot" id="pd4"></div>
-          </div>
+
         </div>
         <!-- /tv-outer -->
 
@@ -6265,270 +6343,154 @@
 
       <!-- LEADERBOARD -->
       <div class="screen" id="leaderboard">
-        <div class="scr-hd">
-          <h2>Rankings 🏆</h2>
-          <p>Weekly top performers</p>
+        <!-- Premium header banner -->
+        <div style="
+          margin: 10px 14px 0;
+          border-radius: 18px;
+          padding: 13px 14px 11px;
+          background: linear-gradient(135deg,rgba(255,200,0,0.1),rgba(255,140,0,0.06),rgba(180,79,255,0.08));
+          border: 1px solid rgba(255,200,0,0.2);
+          backdrop-filter: blur(20px);
+          display: flex; align-items: center; gap: 11px;
+          position: relative; overflow: hidden; flex-shrink: 0;
+        ">
+          <div style="position:absolute;top:-20px;right:-20px;width:80px;height:80px;
+            background:radial-gradient(circle,rgba(255,200,0,0.15),transparent 65%);pointer-events:none;"></div>
+          <!-- medal icon -->
+          <div style="
+            width:42px;height:42px;border-radius:12px;flex-shrink:0;
+            background:linear-gradient(135deg,rgba(255,200,0,0.25),rgba(255,140,0,0.15));
+            border:1px solid rgba(255,200,0,0.3);
+            display:flex;align-items:center;justify-content:center;
+            box-shadow:0 4px 14px rgba(255,165,0,0.2);
+          ">
+            <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+              <circle cx="11" cy="11" r="11" fill="url(#mg1)"/>
+              <polygon points="11,4 12.9,9.1 18.3,9.1 13.9,12.3 15.6,17.4 11,14.4 6.4,17.4 8.1,12.3 3.7,9.1 9.1,9.1" fill="url(#mg2)" stroke="rgba(0,0,0,0.2)" stroke-width="0.4"/>
+              <defs>
+                <linearGradient id="mg1" x1="0" y1="0" x2="22" y2="22"><stop offset="0%" stop-color="#b8860b"/><stop offset="100%" stop-color="#ffd700"/></linearGradient>
+                <linearGradient id="mg2" x1="0" y1="4" x2="22" y2="18"><stop offset="0%" stop-color="#fffacd"/><stop offset="100%" stop-color="#ffd700"/></linearGradient>
+              </defs>
+            </svg>
+          </div>
+          <div style="flex:1;">
+            <div style="font-family:'JetBrains Mono',monospace;font-size:8px;font-weight:800;letter-spacing:1.5px;color:rgba(255,200,0,0.7);margin-bottom:2px;">WEEKLY RANKINGS</div>
+            <div style="font-size:16px;font-weight:900;font-family:'Syne',sans-serif;
+              background:linear-gradient(135deg,#ffd700,#ff9500);
+              -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+              letter-spacing:-0.4px;line-height:1.2;">Leaderboard</div>
+            <div style="font-size:9px;color:var(--mut2);margin-top:2px;font-weight:600;">1,248 active this week · resets Monday</div>
+          </div>
+          <div style="flex-shrink:0;text-align:right;">
+            <div style="
+              font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:900;
+              color:#ffd700;letter-spacing:-0.3px;">2d 14h</div>
+            <div style="font-size:7.5px;color:var(--mut);font-weight:700;margin-top:1px;">RESET IN</div>
+          </div>
         </div>
-        <div
-          style="
-            margin: 12px 14px;
-            border-radius: 22px;
-            padding: 18px 14px;
-            background: linear-gradient(
-              145deg,
-              rgba(255, 255, 255, 0.06),
-              rgba(255, 255, 255, 0.02)
-            );
-            backdrop-filter: blur(28px);
-            -webkit-backdrop-filter: blur(28px);
-            border: 1px solid var(--b);
-            position: relative;
-            overflow: hidden;
-          "
-        >
-          <div
-            class="lb-podium-wrap"
-            style="
-              display: flex;
-              align-items: flex-end;
-              justify-content: center;
-              gap: 10px;
-            "
-          >
-            <div
-              style="
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                gap: 4px;
-                margin-bottom: 6px;
-              "
-            >
-              <div
-                style="
-                  width: 48px;
-                  height: 48px;
-                  border-radius: 15px;
-                  background: linear-gradient(135deg, #c0c0c0, #808080);
-                  color: #000;
-                  display: flex;
-                  align-items: center;
-                  justify-content: center;
-                  font-size: 18px;
-                  font-weight: 900;
-                  font-family: &quot;Syne&quot;, sans-serif;
-                "
-              >
-                R
+        <!-- Premium podium -->
+        <div style="margin: 10px 14px 8px; position: relative;">
+          <!-- decorative glow -->
+          <div style="position:absolute;top:10px;left:50%;transform:translateX(-50%);width:120px;height:60px;
+            background:radial-gradient(ellipse,rgba(255,200,0,0.12),transparent 70%);pointer-events:none;z-index:0;"></div>
+
+          <div style="display:flex;align-items:flex-end;justify-content:center;gap:8px;position:relative;z-index:1;">
+
+            <!-- 🥈 SILVER — Rank 2 -->
+            <div style="display:flex;flex-direction:column;align-items:center;gap:0;flex:1;max-width:102px;">
+              <div style="font-size:16px;margin-bottom:3px;filter:drop-shadow(0 0 6px rgba(200,205,235,0.5));">🥈</div>
+              <div style="
+                width:44px;height:44px;border-radius:13px;
+                background:linear-gradient(135deg,#c8cce8,#9098c0);
+                color:#fff;display:flex;align-items:center;justify-content:center;
+                font-size:17px;font-weight:900;font-family:'Syne',sans-serif;
+                box-shadow:0 4px 14px rgba(180,185,220,0.4),0 0 0 2px rgba(200,205,235,0.3);
+                position:relative;
+              ">R
+                <div style="position:absolute;inset:-2px;border-radius:15px;border:1.5px solid rgba(200,205,235,0.5);animation:pulseRing 2.2s ease-in-out infinite;"></div>
               </div>
-              <div style="font-size: 10px; font-weight: 700; color: var(--txt)">
-                Rahul V.
-              </div>
-              <div
-                style="
-                  font-size: 8.5px;
-                  color: var(--acc);
-                  font-family: &quot;JetBrains Mono&quot;, monospace;
-                "
-              >
-                3,680
-              </div>
-              <div
-                style="
-                  border-radius: 9px 9px 0 0;
-                  width: 76px;
-                  height: 34px;
-                  background: rgba(192, 192, 192, 0.1);
-                  display: flex;
-                  align-items: center;
-                  justify-content: center;
-                  font-size: 16px;
-                  font-weight: 900;
-                  color: rgba(255, 255, 255, 0.2);
-                "
-              >
-                2
-              </div>
+              <div style="font-size:10px;font-weight:800;color:var(--txt);margin-top:5px;white-space:nowrap;">Rahul V.</div>
+              <div style="font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:800;
+                background:linear-gradient(135deg,#c8cce8,#e0e4ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+                margin-top:1px;">3,680</div>
+              <!-- pedestal -->
+              <div style="
+                margin-top:5px;border-radius:8px 8px 0 0;width:100%;height:28px;
+                background:linear-gradient(180deg,rgba(200,205,235,0.18),rgba(200,205,235,0.06));
+                border:1px solid rgba(200,205,235,0.2);border-bottom:none;
+                display:flex;align-items:center;justify-content:center;
+                font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:900;
+                color:rgba(200,205,235,0.35);
+              ">2</div>
             </div>
-            <div
-              style="
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                gap: 4px;
-                margin-bottom: 18px;
-              "
-            >
-              <div
-                style="
-                  font-size: 19px;
-                  filter: drop-shadow(0 0 8px rgba(255, 215, 0, 0.55));
-                "
-              >
-                👑
+
+            <!-- 🥇 GOLD — Rank 1 (tallest, centre) -->
+            <div style="display:flex;flex-direction:column;align-items:center;gap:0;flex:1;max-width:118px;transform:translateY(-8px);">
+              <!-- animated star ring -->
+              <div style="position:relative;width:58px;height:58px;margin-bottom:3px;">
+                <div style="position:absolute;inset:-6px;border-radius:50%;
+                  background:conic-gradient(from 0deg,#ffd700,#ff9500,#ffd700,#ffcc00,#ffd700);
+                  animation:goldSweep 3s linear infinite;opacity:0.4;"></div>
+                <div style="
+                  position:relative;z-index:1;
+                  width:58px;height:58px;border-radius:16px;
+                  background:linear-gradient(135deg,#ffd700,#ff9500,#ffcc00);
+                  color:#000;display:flex;align-items:center;justify-content:center;
+                  font-size:22px;font-weight:900;font-family:'Syne',sans-serif;
+                  box-shadow:0 6px 22px rgba(255,165,0,0.55),0 0 0 2.5px rgba(255,215,0,0.5);
+                ">P</div>
               </div>
-              <div
-                style="
-                  width: 58px;
-                  height: 58px;
-                  border-radius: 17px;
-                  background: linear-gradient(135deg, #ffd700, #ff9500);
-                  color: #000;
-                  display: flex;
-                  align-items: center;
-                  justify-content: center;
-                  font-size: 20px;
-                  font-weight: 900;
-                  font-family: &quot;Syne&quot;, sans-serif;
-                  box-shadow: 0 5px 18px rgba(255, 165, 0, 0.4);
-                "
-              >
-                P
-              </div>
-              <div style="font-size: 10px; font-weight: 700; color: var(--txt)">
-                Priya S.
-              </div>
-              <div
-                style="
-                  font-size: 8.5px;
-                  color: var(--acc);
-                  font-family: &quot;JetBrains Mono&quot;, monospace;
-                "
-              >
-                4,200
-              </div>
-              <div
-                style="
-                  border-radius: 9px 9px 0 0;
-                  width: 76px;
-                  height: 48px;
-                  background: rgba(255, 215, 0, 0.09);
-                  display: flex;
-                  align-items: center;
-                  justify-content: center;
-                  font-size: 18px;
-                  font-weight: 900;
-                  color: rgba(255, 255, 255, 0.18);
-                "
-              >
-                1
-              </div>
+              <div style="
+                font-family:'JetBrains Mono',monospace;font-size:7px;font-weight:800;
+                letter-spacing:1.2px;padding:2px 8px;border-radius:6px;
+                background:rgba(255,200,0,0.15);color:#ffd700;
+                border:1px solid rgba(255,200,0,0.3);margin-bottom:4px;
+              ">CHAMPION</div>
+              <div style="font-size:11px;font-weight:900;color:var(--txt);white-space:nowrap;">Priya S.</div>
+              <div style="font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:900;
+                background:linear-gradient(135deg,#ffd700,#ff9500);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+                margin-top:1px;">4,200</div>
+              <!-- pedestal -->
+              <div style="
+                margin-top:5px;border-radius:8px 8px 0 0;width:100%;height:44px;
+                background:linear-gradient(180deg,rgba(255,215,0,0.18),rgba(255,165,0,0.06));
+                border:1px solid rgba(255,200,0,0.25);border-bottom:none;
+                display:flex;align-items:center;justify-content:center;
+                font-family:'JetBrains Mono',monospace;font-size:16px;font-weight:900;
+                color:rgba(255,200,0,0.3);
+              ">1</div>
             </div>
-            <div
-              style="
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                gap: 4px;
-              "
-            >
-              <div
-                style="
-                  width: 44px;
-                  height: 44px;
-                  border-radius: 14px;
-                  background: linear-gradient(135deg, #cd7f32, #8b4513);
-                  color: #fff;
-                  display: flex;
-                  align-items: center;
-                  justify-content: center;
-                  font-size: 16px;
-                  font-weight: 900;
-                  font-family: &quot;Syne&quot;, sans-serif;
-                "
-              >
-                M
+
+            <!-- 🥉 BRONZE — Rank 3 -->
+            <div style="display:flex;flex-direction:column;align-items:center;gap:0;flex:1;max-width:102px;">
+              <div style="font-size:16px;margin-bottom:3px;filter:drop-shadow(0 0 6px rgba(205,127,50,0.5));">🥉</div>
+              <div style="
+                width:44px;height:44px;border-radius:13px;
+                background:linear-gradient(135deg,#e8a060,#a05020);
+                color:#fff;display:flex;align-items:center;justify-content:center;
+                font-size:17px;font-weight:900;font-family:'Syne',sans-serif;
+                box-shadow:0 4px 14px rgba(190,120,50,0.35),0 0 0 2px rgba(205,127,50,0.3);
+                position:relative;
+              ">M
+                <div style="position:absolute;inset:-2px;border-radius:15px;border:1.5px solid rgba(205,127,50,0.45);animation:pulseRing 2.4s ease-in-out infinite 0.3s;"></div>
               </div>
-              <div style="font-size: 10px; font-weight: 700; color: var(--txt)">
-                Meera K.
-              </div>
-              <div
-                style="
-                  font-size: 8.5px;
-                  color: var(--acc);
-                  font-family: &quot;JetBrains Mono&quot;, monospace;
-                "
-              >
-                3,100
-              </div>
-              <div
-                style="
-                  border-radius: 9px 9px 0 0;
-                  width: 76px;
-                  height: 25px;
-                  background: rgba(205, 127, 50, 0.1);
-                  display: flex;
-                  align-items: center;
-                  justify-content: center;
-                  font-size: 14px;
-                  font-weight: 900;
-                  color: rgba(255, 255, 255, 0.18);
-                "
-              >
-                3
-              </div>
+              <div style="font-size:10px;font-weight:800;color:var(--txt);margin-top:5px;white-space:nowrap;">Meera K.</div>
+              <div style="font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:800;
+                background:linear-gradient(135deg,#e8a060,#cd7f32);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+                margin-top:1px;">3,100</div>
+              <!-- pedestal -->
+              <div style="
+                margin-top:5px;border-radius:8px 8px 0 0;width:100%;height:20px;
+                background:linear-gradient(180deg,rgba(205,127,50,0.18),rgba(180,100,40,0.06));
+                border:1px solid rgba(205,127,50,0.2);border-bottom:none;
+                display:flex;align-items:center;justify-content:center;
+                font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:900;
+                color:rgba(205,127,50,0.3);
+              ">3</div>
             </div>
           </div>
         </div>
-        <div
-          style="display: flex; gap: 7px; padding: 0 14px; margin-bottom: 9px"
-        >
-          <button
-            class="ptb active"
-            style="
-              flex: 1;
-              padding: 8px;
-              border-radius: 10px;
-              font-size: 10.5px;
-              font-weight: 700;
-              color: var(--gold);
-              cursor: pointer;
-              text-align: center;
-              background: rgba(255, 200, 0, 0.14);
-              border: 1px solid rgba(255, 200, 0, 0.2);
-              font-family: &quot;Plus Jakarta Sans&quot;, sans-serif;
-            "
-          >
-            Weekly
-          </button>
-          <button
-            class="ptb"
-            style="
-              flex: 1;
-              padding: 8px;
-              border-radius: 10px;
-              font-size: 10.5px;
-              font-weight: 700;
-              color: var(--mut);
-              cursor: pointer;
-              text-align: center;
-              background: rgba(255, 255, 255, 0.04);
-              border: none;
-              font-family: &quot;Plus Jakarta Sans&quot;, sans-serif;
-            "
-          >
-            Monthly
-          </button>
-          <button
-            class="ptb"
-            style="
-              flex: 1;
-              padding: 8px;
-              border-radius: 10px;
-              font-size: 10.5px;
-              font-weight: 700;
-              color: var(--mut);
-              cursor: pointer;
-              text-align: center;
-              background: rgba(255, 255, 255, 0.04);
-              border: none;
-              font-family: &quot;Plus Jakarta Sans&quot;, sans-serif;
-            "
-          >
-            All Time
-          </button>
-        </div>
-        <div class="lb-full-list">
+                <div class="lb-full-list">
           <div class="lbr">
             <div class="lbr-rank lrg">1</div>
             <div
@@ -7411,10 +7373,46 @@
       <!-- PREMIUM -->
       <div class="screen" id="premium">
         <div class="prem-top">
-          <div class="prem-crown">👑</div>
-          <div class="prem-title">UPSC Prep Pro</div>
-          <div class="prem-sub">
-            Everything to crack UPSC — offline, forever
+          <div class="prem-hero-row">
+            <div class="prem-hero-badge">
+              <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="20" cy="20" r="20" fill="url(#hpg1)"/>
+                <polygon points="20,9 23.5,17 33,17 25.5,22.5 28,31 20,26 12,31 14.5,22.5 7,17 16.5,17" fill="url(#hpg2)" stroke="rgba(255,255,255,0.25)" stroke-width="0.6"/>
+                <defs>
+                  <linearGradient id="hpg1" x1="0" y1="0" x2="40" y2="40">
+                    <stop offset="0%" stop-color="#6e3fff"/>
+                    <stop offset="100%" stop-color="#b44fff"/>
+                  </linearGradient>
+                  <linearGradient id="hpg2" x1="7" y1="9" x2="33" y2="31">
+                    <stop offset="0%" stop-color="#ffe566"/>
+                    <stop offset="50%" stop-color="#ff9500"/>
+                    <stop offset="100%" stop-color="#ffd700"/>
+                  </linearGradient>
+                </defs>
+              </svg>
+            </div>
+            <div class="prem-hero-text">
+              <div class="prem-hero-tag">UPSC PREP PRO</div>
+              <div class="prem-title">Unlock Everything</div>
+              <div class="prem-sub">Themes · Ad-free · Pro Quizzes · Daily Affairs</div>
+            </div>
+            <div class="prem-hero-pill">PRO</div>
+          </div>
+          <div class="prem-stat-row">
+            <div class="prem-stat-item">
+              <div class="prem-stat-val">50K+</div>
+              <div class="prem-stat-lbl">Learners</div>
+            </div>
+            <div class="prem-stat-div"></div>
+            <div class="prem-stat-item">
+              <div class="prem-stat-val">4.9★</div>
+              <div class="prem-stat-lbl">Rating</div>
+            </div>
+            <div class="prem-stat-div"></div>
+            <div class="prem-stat-item">
+              <div class="prem-stat-val">310</div>
+              <div class="prem-stat-lbl">Days Left</div>
+            </div>
           </div>
         </div>
         <div class="feat-list">
@@ -7601,7 +7599,13 @@
           id="nav-leaderboard"
           onclick="switchTab('leaderboard')"
         >
-          <div class="nb-i">🏆</div>
+          <div class="nb-i" style="line-height:1;">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <rect x="1" y="10" width="4" height="9" rx="1.5" fill="currentColor" opacity="0.5"/>
+              <rect x="8" y="6" width="4" height="13" rx="1.5" fill="currentColor" opacity="0.75"/>
+              <rect x="15" y="2" width="4" height="17" rx="1.5" fill="currentColor"/>
+            </svg>
+          </div>
           <div class="nb-l">Ranks</div>
         </button>
         <button class="nb" id="nav-learn" onclick="switchTab('learn')">
@@ -7618,7 +7622,12 @@
           onclick="switchTab('premium')"
           style="position: relative"
         >
-          <div class="nb-i">👑</div>
+          <div class="nb-i" style="line-height:1;">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <polygon points="10,2 12.5,7.5 18.5,8.2 14.2,12.2 15.5,18 10,15 4.5,18 5.8,12.2 1.5,8.2 7.5,7.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+              <polygon points="10,4.5 12,8.8 16.8,9.4 13.4,12.5 14.3,17.2 10,14.8 5.7,17.2 6.6,12.5 3.2,9.4 8,8.8" fill="currentColor" opacity="0.6"/>
+            </svg>
+          </div>
           <div class="nb-l">Pro</div>
           <div
             style="
@@ -7988,65 +7997,191 @@
         const el = document.getElementById("sl-podium");
         if (!el || !d) return;
 
-        const stars = Array.from(
-          { length: 5 },
-          (_, i) =>
-            `<span class="lb-feat-star" style="animation-delay:${0.3 + i * 0.08}s;opacity:${i < d.stars ? 1 : 0.15}">${i < d.stars ? "★" : "☆"}</span>`,
-        ).join("");
-
         const xpNum = parseInt(d.xp.replace(",", ""));
         const xpPct = Math.round(xpNum / 42);
 
+        // Premium gradient configs per rank
+        const gradCfg = {
+          1: {
+            bg: "linear-gradient(145deg,rgba(255,210,0,0.22),rgba(255,140,0,0.14),rgba(255,60,0,0.07))",
+            border: "rgba(255,210,0,0.45)",
+            glow: "rgba(255,180,0,0.28)",
+            barGrad: "linear-gradient(90deg,#ff9500,#ffd700,#ffe566)",
+            namGrad: "linear-gradient(90deg,#ffd700,#ffcc00,#ff9500,#ffd700)",
+            xpCol: "linear-gradient(135deg,#ffd700,#ff9500)",
+            badgeBg: "rgba(255,180,0,0.2)",
+            badgeCol: "#ffd700",
+            badgeBdr: "rgba(255,200,0,0.3)",
+            shineBg: "rgba(255,215,0,0.06)",
+            ringCol: "rgba(255,200,0,0.8)",
+            ringShad: "0 0 14px rgba(255,180,0,0.55)",
+            rankTag: "🥇",
+            rankTxt: "RANK #1 · CHAMPION",
+          },
+          2: {
+            bg: "linear-gradient(145deg,rgba(210,215,240,0.18),rgba(160,170,210,0.1),rgba(100,110,180,0.06))",
+            border: "rgba(200,205,235,0.38)",
+            glow: "rgba(180,185,220,0.2)",
+            barGrad: "linear-gradient(90deg,#8892c0,#c8ccec,#e0e4ff)",
+            namGrad: "linear-gradient(90deg,#c8cce8,#e0e4ff,#a0a8d0,#c8cce8)",
+            xpCol: "linear-gradient(135deg,#c0c4e0,#e0e4ff)",
+            badgeBg: "rgba(200,205,235,0.15)",
+            badgeCol: "#c8cce8",
+            badgeBdr: "rgba(200,205,235,0.25)",
+            shineBg: "rgba(200,205,235,0.05)",
+            ringCol: "rgba(200,205,235,0.6)",
+            ringShad: "0 0 12px rgba(180,185,220,0.35)",
+            rankTag: "🥈",
+            rankTxt: "RANK #2 · RUNNER-UP",
+          },
+          3: {
+            bg: "linear-gradient(145deg,rgba(210,140,70,0.2),rgba(180,100,40,0.12),rgba(120,60,20,0.06))",
+            border: "rgba(210,140,70,0.38)",
+            glow: "rgba(190,120,50,0.22)",
+            barGrad: "linear-gradient(90deg,#a0522d,#cd7f32,#e8a060)",
+            namGrad: "linear-gradient(90deg,#e8a060,#cd7f32,#a05020,#e8a060)",
+            xpCol: "linear-gradient(135deg,#cd7f32,#e8a060)",
+            badgeBg: "rgba(200,120,50,0.15)",
+            badgeCol: "#e8a060",
+            badgeBdr: "rgba(200,120,50,0.25)",
+            shineBg: "rgba(205,127,50,0.06)",
+            ringCol: "rgba(205,127,50,0.65)",
+            ringShad: "0 0 12px rgba(190,120,50,0.3)",
+            rankTag: "🥉",
+            rankTxt: "RANK #3 · PODIUM",
+          },
+        };
+        const g = gradCfg[d.rank];
+        const starsHtml = Array.from({length: d.stars}, (_,i) =>
+          `<span style="font-size:9px;animation:starPop 0.35s cubic-bezier(0.34,1.56,0.64,1) both;animation-delay:${0.25+i*0.07}s;">★</span>`
+        ).join("") + Array.from({length: 5-d.stars}, () =>
+          `<span style="font-size:9px;opacity:0.18;">☆</span>`
+        ).join("");
+
         el.innerHTML = `
-    <div class="pod-header">
-      <span class="pod-title">🏆 THIS WEEK — RANK #${d.rank}</span>
-      <div class="lb-live-badge"><div class="lb-live-dot"></div>LIVE</div>
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:5px;flex-shrink:0;">
+  <div style="font-family:'JetBrains Mono',monospace;font-size:7px;font-weight:800;letter-spacing:1.4px;display:flex;align-items:center;gap:4px;">
+    <span style="color:${g.badgeCol};">${g.rankTag} ${g.rankTxt}</span>
+  </div>
+  <div class="lb-live-badge"><div class="lb-live-dot"></div>LIVE</div>
+</div>
+
+<div class="lb-conf-layer" id="podConfetti"></div>
+
+<!-- MAIN CARD -->
+<div style="
+  border-radius:12px;
+  padding:10px 11px 9px;
+  background:${g.bg};
+  border:1.5px solid ${g.border};
+  box-shadow:0 0 28px ${g.glow},inset 0 1px 0 rgba(255,255,255,0.09);
+  position:relative;overflow:hidden;flex-shrink:0;
+  animation:podiumDrop 0.5s cubic-bezier(0.34,1.3,0.64,1) both;
+">
+  <!-- top-right glow orb -->
+  <div style="position:absolute;top:-22px;right:-18px;width:80px;height:80px;
+    background:radial-gradient(circle,${g.glow},transparent 65%);
+    pointer-events:none;animation:glowPulse 2.5s ease-in-out infinite;"></div>
+  <!-- shimmer stripe -->
+  <div style="position:absolute;top:0;left:-60%;width:40%;height:100%;
+    background:linear-gradient(90deg,transparent,rgba(255,255,255,0.07),transparent);
+    animation:shimmerSlide 3s ease-in-out infinite;pointer-events:none;"></div>
+
+  <div style="display:flex;align-items:center;gap:9px;">
+    <!-- Avatar with animated ring -->
+    <div style="position:relative;flex-shrink:0;">
+      <div style="
+        width:42px;height:42px;border-radius:13px;
+        background:linear-gradient(135deg,${d.color},${d.color}99);
+        color:#fff;display:flex;align-items:center;justify-content:center;
+        font-size:17px;font-weight:900;font-family:'Syne',sans-serif;
+        box-shadow:0 4px 14px rgba(0,0,0,0.3);
+        position:relative;z-index:1;
+      ">${d.av}</div>
+      <!-- animated border ring -->
+      <div style="
+        position:absolute;inset:-3px;border-radius:15px;
+        border:2px solid ${g.ringCol};
+        box-shadow:${g.ringShad};
+        animation:pulseRing 2s ease-in-out infinite;
+        pointer-events:none;
+      "></div>
     </div>
-    <div class="lb-conf-layer" id="podConfetti"></div>
-    <div class="pod-card-wrap">
-      <div class="lb-feat-card ${d.cardClass}" style="width:100%;">
-        <div class="lb-feat-medal">${d.medal}</div>
-        <div style="display:flex;align-items:center;gap:8px;width:100%;">
-          <div class="lb-feat-av" style="background:linear-gradient(135deg,${d.color},${d.color}bb);color:#fff;position:relative;">
-            <div class="lb-feat-av-ring"></div>${d.av}
-          </div>
-          <div class="lb-feat-info" style="flex:1;">
-            <div class="lb-feat-name">${d.name}</div>
-            <div class="lb-feat-badge">${d.badge}</div>
-            <div class="lb-feat-stars" style="margin-top:3px;">${stars}</div>
-          </div>
-          <div class="lb-feat-right">
-            <div class="lb-feat-xp">${d.xp}<span style="font-size:6px;opacity:0.5;margin-left:1px;">XP</span></div>
-          </div>
-        </div>
-        <div class="pod-xp-bar-wrap">
-          <div class="pod-xp-bar" style="width:0%;background:linear-gradient(90deg,${d.color},${d.color}88);" data-w="${xpPct}"></div>
-        </div>
-        <div class="lb-feat-stats-row">
-          <span class="lb-feat-stat">${d.streak}</span>
-          <span class="lb-feat-stat-sep">·</span>
-          <span class="lb-feat-stat">${d.accuracy}</span>
-          <span class="lb-feat-stat-sep">·</span>
-          <span class="lb-feat-stat">${xpPct}% of max</span>
-        </div>
-      </div>
-      <div class="pod-taunt-row">
-        <div class="pod-taunt-text ${d.applauseClass}">${d.taunt}</div>
-      </div>
-      <div class="lb-feat-cta-bar">
-        <span class="lb-feat-cta-ic">⚡</span>
-        <span class="lb-feat-cta-txt">${d.challenge}</span>
-      </div>
+
+    <!-- Name + badge + stars -->
+    <div style="flex:1;min-width:0;">
+      <div style="
+        font-size:13px;font-weight:900;font-family:'Syne',sans-serif;
+        background:${g.namGrad};background-size:200%;
+        -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+        background-clip:text;animation:goldSweep 2s linear infinite;
+        letter-spacing:-0.2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+      ">${d.name}</div>
+      <div style="
+        display:inline-flex;align-items:center;gap:3px;
+        border-radius:7px;padding:2px 7px;margin-top:3px;
+        font-size:7.5px;font-weight:800;letter-spacing:0.4px;
+        font-family:'JetBrains Mono',monospace;
+        background:${g.badgeBg};color:${g.badgeCol};border:1px solid ${g.badgeBdr};
+      ">${d.badge}</div>
     </div>
-    <div class="pod-dots">
-      ${[0, 1, 2].map((i) => `<div class="lb-pdot${i === idx ? " on" : ""}"></div>`).join("")}
-    </div>`;
+
+    <!-- XP -->
+    <div style="flex-shrink:0;text-align:right;">
+      <div style="
+        font-family:'JetBrains Mono',monospace;font-size:16px;font-weight:900;
+        background:${g.xpCol};-webkit-background-clip:text;-webkit-text-fill-color:transparent;
+        background-clip:text;letter-spacing:-0.5px;
+        animation:countUp 0.5s cubic-bezier(0.34,1.56,0.64,1) both 0.2s;
+      ">${d.xp}</div>
+      <div style="font-size:6.5px;font-weight:700;color:rgba(255,255,255,0.3);margin-top:1px;">XP THIS WEEK</div>
+      <div style="display:flex;gap:1px;justify-content:flex-end;margin-top:3px;">${starsHtml}</div>
+    </div>
+  </div>
+
+  <!-- XP Progress bar -->
+  <div style="margin-top:8px;background:rgba(255,255,255,0.07);height:4px;border-radius:3px;overflow:hidden;">
+    <div class="pod-xp-bar" data-w="${xpPct}" style="width:0%;height:100%;border-radius:3px;background:${g.barGrad};transition:width 1s cubic-bezier(0.4,0,0.2,1);position:relative;">
+      <div style="position:absolute;right:-1px;top:50%;transform:translateY(-50%);width:8px;height:8px;border-radius:50%;background:${g.badgeCol};box-shadow:0 0 8px ${g.badgeCol};"></div>
+    </div>
+  </div>
+
+  <!-- Stats row -->
+  <div style="display:flex;align-items:center;gap:5px;margin-top:7px;padding-top:6px;border-top:1px solid rgba(255,255,255,0.07);">
+    <span style="font-family:'JetBrains Mono',monospace;font-size:7.5px;font-weight:700;color:${g.badgeCol};opacity:0.8;">${d.streak}</span>
+    <span style="color:rgba(255,255,255,0.15);font-size:8px;">·</span>
+    <span style="font-family:'JetBrains Mono',monospace;font-size:7.5px;font-weight:700;color:${g.badgeCol};opacity:0.8;">${d.accuracy}</span>
+    <span style="color:rgba(255,255,255,0.15);font-size:8px;">·</span>
+    <span style="font-family:'JetBrains Mono',monospace;font-size:7.5px;font-weight:700;color:${g.badgeCol};opacity:0.6;">${xpPct}% of #1</span>
+  </div>
+</div>
+
+<!-- Taunt + CTA below card -->
+<div style="margin-top:5px;font-size:9px;font-weight:600;color:rgba(200,210,255,0.7);font-family:'Plus Jakarta Sans',sans-serif;line-height:1.45;animation:slideUp 0.35s ease both 0.35s;">${d.taunt}</div>
+<div style="
+  margin-top:5px;display:flex;align-items:center;gap:6px;
+  background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.09);
+  border-radius:8px;padding:5px 9px;
+  animation:slideUp 0.35s ease both 0.5s;flex-shrink:0;
+">
+  <span style="font-size:11px;">⚡</span>
+  <span style="font-size:8px;font-weight:700;color:rgba(255,255,255,0.7);font-family:'JetBrains Mono',monospace;flex:1;">${d.challenge}</span>
+</div>
+
+<!-- Rank dots -->
+<div style="display:flex;justify-content:center;gap:4px;margin-top:5px;flex-shrink:0;">
+  ${[0,1,2].map(i=>`<div style="height:2.5px;border-radius:2px;transition:all 0.3s;
+    width:${i===idx?"16px":"8px"};
+    background:${i===idx?g.badgeCol:"rgba(255,255,255,0.12)"};
+    box-shadow:${i===idx?`0 0 5px ${g.badgeCol}`:"none"};
+  "></div>`).join("")}
+</div>`;
 
         if (d.rank === 1) launchConfetti(el.querySelector("#podConfetti"));
         setTimeout(() => {
           const bar = el.querySelector(".pod-xp-bar");
           if (bar) bar.style.width = bar.getAttribute("data-w") + "%";
-        }, 120);
+        }, 150);
         showSlide("sl-podium");
       }
 
@@ -8383,6 +8518,29 @@
             setTimeout(() => el.classList.remove("exit"), 500);
           }
         });
+        updateTvDotsAndChannel();
+      }
+
+      // ── Update bezel dots + channel number to match current step ──
+      function updateTvDotsAndChannel() {
+        const total = slides.length;
+        const cur = stepIdx % total;
+
+        // Channel number
+        const chEl = document.getElementById("tvChNum");
+        if (chEl) chEl.textContent = "CH·" + String(cur + 1).padStart(2, "0");
+
+        // Rebuild dots inside bezel — show max 8, compress if more
+        const bdEl = document.getElementById("tvBDots");
+        if (!bdEl) return;
+        const show = Math.min(total, 10);
+        const dotIdx = Math.round((cur / (total - 1)) * (show - 1));
+        let html = "";
+        for (let i = 0; i < show; i++) {
+          const on = i === dotIdx;
+          html += `<div class="b-dot${on ? " on" : ""}"></div>`;
+        }
+        bdEl.innerHTML = html;
       }
 
       // ── MAIN LOOP ──────────────────────────────────────────────
@@ -8417,6 +8575,7 @@
 
       // Boot
       renderStep(slides[0]);
+      updateTvDotsAndChannel();
       tvTimer = setTimeout(() => {
         stepIdx = 1;
         runStep();
@@ -9442,25 +9601,29 @@
       // Solution: use visualViewport.height (actual visible px) and write it
       // as --app-h so CSS uses it instead of 100dvh fallback.
       function fixHeight() {
-        const isMobile = window.innerWidth <= 480;
-        if (!isMobile) return; // desktop uses fixed 844px from CSS
+        const vvp = window.visualViewport;
+        const h = vvp ? vvp.height : window.innerHeight;
+        const w = vvp ? vvp.width : window.innerWidth;
+        const isMobile = w <= 480;
 
-        // visualViewport.height = exact visible area (address bar excluded)
-        const h = window.visualViewport
-          ? window.visualViewport.height
-          : window.innerHeight;
-        const w = window.visualViewport
-          ? window.visualViewport.width
-          : window.innerWidth;
-
-        // Set the CSS variable — .phone reads it as height: var(--app-h, 100dvh)
+        // Always set the CSS variable for any CSS that needs it
         document.documentElement.style.setProperty("--app-h", h + "px");
+        document.documentElement.style.setProperty("--vph", h + "px");
 
-        // Directly set phone size so there's zero discrepancy
         const phone = document.getElementById("app");
-        if (phone) {
-          phone.style.height = h + "px";
+        if (!phone) return;
+
+        if (isMobile) {
+          // Mobile: fill exact visible screen — no chrome overflow
           phone.style.width = w + "px";
+          phone.style.height = h + "px";
+          phone.style.borderRadius = "0";
+        } else {
+          // Desktop/tablet: let CSS min() handle sizing, just clear any
+          // inline styles so CSS rules take over cleanly
+          phone.style.width = "";
+          phone.style.height = "";
+          phone.style.borderRadius = "";
         }
       }
 
