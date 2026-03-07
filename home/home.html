@@ -1,0 +1,215 @@
+<div class="screen active" id="home">
+  <div class="tv-outer">
+    <div class="tv-bezel">
+      <div class="tv-screen">
+        <div class="tv-screen-inner">
+          <div class="tv-bar">
+            <div class="tv-ch">
+              <div class="live-pip"></div>
+              <p>UPSC·TV</p> &nbsp;<span id="tvChNum">CH·01</span>
+            </div>
+            <div class="tv-clock-el" id="tvClock">09:41:00</div>
+            <div class="tv-signal">
+              <div class="tsig-1"></div>
+              <div class="tsig-2"></div>
+              <div class="tsig-3"></div>
+              <div class="tsig-4"></div>
+            </div>
+          </div>
+
+          <div class="slides-wrap">
+            <div
+              class="qtv-timer-bar"
+              id="tvTimerBar"
+              style="width: 100%"
+            ></div>
+
+            <div class="tv-slide active" id="sl-bn">
+              <div class="bn-flag">🔴 BREAKING NEWS</div>
+              <div class="bn-head" id="bnHead">
+                Arjun Singh on a<br /><em>12-Day Streak!</em> 🔥
+              </div>
+              <div class="bn-sub" id="bnSub">
+                Accuracy 74% · Rank #4 this week
+              </div>
+            </div>
+
+            <div
+              class="tv-slide"
+              id="sl-podium"
+              style="padding: 6px 8px 4px; justify-content: flex-start"
+            ></div>
+            <div
+              class="tv-slide"
+              id="sl-shoutout"
+              style="padding: 6px 8px 4px; justify-content: flex-start"
+            ></div>
+            <div
+              class="tv-slide"
+              id="sl-battle"
+              style="padding: 6px 8px 4px; justify-content: flex-start"
+            ></div>
+            <div
+              class="tv-slide"
+              id="sl-quiz"
+              style="padding: 7px 9px 4px; justify-content: flex-start"
+            ></div>
+
+            <div class="tv-slide" id="sl3">
+              <div class="tip-tag">💡 APP GUIDE</div>
+              <div class="tip-ic" id="tipIc">🎨</div>
+              <div class="tip-title" id="tipTitle">Try Premium Themes</div>
+              <div class="tip-body" id="tipBody">
+                Tap 👑 Pro tab to preview Aurora, Ember or Ice live!
+              </div>
+              <div class="tip-cta" id="tipCta">→ Tap 👑 Pro tab</div>
+            </div>
+
+            <div class="tv-slide" id="sl4">
+              <div class="prem-tag">👑 PREMIUM SPOTLIGHT</div>
+              <div class="prem-ic-tv" id="premIc">🤖</div>
+              <div class="prem-title-tv" id="premTitleTv">
+                Go Ad-Free + 3 Themes
+              </div>
+              <div class="prem-body-tv" id="premBodyTv">
+                Remove ads, unlock Aurora · Ember · Ice themes & Pro quizzes.
+              </div>
+              <button class="prem-btn-tv" onclick="switchTab('premium')">
+                Unlock Pro →
+              </button>
+            </div>
+          </div>
+
+          <div class="tv-ticker">
+            <div class="ticker-track" id="tickTrack"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="bezel-btm">
+        <div class="tv-speaker">
+          <div class="sp-dot"></div>
+          <div class="sp-dot"></div>
+          <div class="sp-dot"></div>
+          <div class="sp-dot"></div>
+          <div class="sp-dot"></div>
+          <div class="sp-dot"></div>
+        </div>
+        <div class="bezel-btm-center">
+          <div class="b-dots" id="tvBDots"></div>
+          <div class="b-brand">UPSC·PREP·PRO</div>
+        </div>
+        <div class="tv-speaker">
+          <div class="sp-dot"></div>
+          <div class="sp-dot"></div>
+          <div class="sp-dot"></div>
+          <div class="sp-dot"></div>
+          <div class="sp-dot"></div>
+          <div class="sp-dot"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec-hd" style="margin-top: 8px">Overview</div>
+  <div class="stats-row">
+    <div class="stat glass">
+      <div class="si">⚡</div>
+      <div class="sv sv1">2,840</div>
+      <div class="sl">XP Total</div>
+    </div>
+    <div class="stat glass">
+      <div class="si">🎯</div>
+      <div class="sv sv2">74%</div>
+      <div class="sl">Accuracy</div>
+    </div>
+    <div class="stat glass">
+      <div class="si">🔥</div>
+      <div class="sv sv3">12</div>
+      <div class="sl">Day Streak</div>
+    </div>
+  </div>
+
+  <div class="home-lv-card glass">
+    <div
+      style="
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 6px;
+      "
+    >
+      <div>
+        <div
+          style="
+            font-size: 13px;
+            font-weight: 800;
+            color: var(--txt);
+            font-family: &quot;Syne&quot;, sans-serif;
+          "
+        >
+          Level 8 · Intermediate Scholar
+        </div>
+        <div style="font-size: 9.5px; color: var(--mut); margin-top: 1px">
+          660 XP to Level 9
+        </div>
+      </div>
+      <div
+        style="
+          font-family: &quot;JetBrains Mono&quot;, monospace;
+          font-size: 13px;
+          font-weight: 700;
+          color: var(--acc3);
+        "
+      >
+        2,840
+      </div>
+    </div>
+    <div class="xp-track">
+      <div class="xp-fill" id="hXpFill" style="width: 0%"></div>
+    </div>
+    <div
+      style="
+        display: flex;
+        justify-content: space-between;
+        margin-top: 4px;
+        font-size: 8.5px;
+        color: var(--mut);
+      "
+    >
+      <span>2,840 / 3,500 XP</span><span>81% to next level</span>
+    </div>
+  </div>
+
+  <div class="sec-hd" style="margin-top: 6px">
+    Topics <a onclick="switchTab('learn')">All →</a>
+  </div>
+  <div class="chip-rail">
+    <div class="chip glass" onclick="switchTab('learn')">
+      <div class="chip-i">🏛️</div>
+      <div class="chip-n">History</div>
+      <div class="chip-b"><div class="chip-f" style="width: 65%"></div></div>
+    </div>
+    <div class="chip glass" onclick="switchTab('learn')">
+      <div class="chip-i">🗺️</div>
+      <div class="chip-n">Geo</div>
+      <div class="chip-b"><div class="chip-f" style="width: 40%"></div></div>
+    </div>
+    <div class="chip glass" onclick="switchTab('learn')">
+      <div class="chip-i">📜</div>
+      <div class="chip-n">Polity</div>
+      <div class="chip-b"><div class="chip-f" style="width: 30%"></div></div>
+    </div>
+    <div class="chip glass" onclick="switchTab('learn')">
+      <div class="chip-i">📈</div>
+      <div class="chip-n">Economy</div>
+      <div class="chip-b"><div class="chip-f" style="width: 20%"></div></div>
+    </div>
+    <div class="chip glass" onclick="switchTab('learn')">
+      <div class="chip-i">🔬</div>
+      <div class="chip-n">Science</div>
+      <div class="chip-b"><div class="chip-f" style="width: 55%"></div></div>
+    </div>
+  </div>
+  <div style="height: 10px"></div>
+</div>

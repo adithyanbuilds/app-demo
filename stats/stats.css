@@ -1,0 +1,195 @@
+/* ══════════════════════════════════════
+   STATS & PROGRESS
+   ══════════════════════════════════════ */
+
+.lv-card {
+  margin: 10px var(--side-pad);
+  padding: 16px;
+  background: var(--card);
+  border: 1px solid var(--b);
+  border-radius: 20px;
+}
+
+.lvc-r1 {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.lvc-lv {
+  font-size: 20px;
+  font-weight: 900;
+  font-family: "Syne", sans-serif;
+  color: #fff;
+}
+
+.lvc-sub {
+  font-size: 9px;
+  font-weight: 800;
+  color: var(--acc);
+  letter-spacing: 1px;
+  margin-top: 2px;
+}
+
+.lvc-xb {
+  text-align: right;
+}
+.lvc-xv {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--acc3);
+}
+.lvc-xl {
+  font-size: 8px;
+  color: var(--mut);
+  margin-top: 2px;
+}
+
+.lvc-br {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 6px;
+  font-size: 10px;
+  color: var(--mut);
+}
+
+.lvc-b {
+  height: 6px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.lvc-f {
+  height: 100%;
+  background: linear-gradient(90deg, var(--acc), var(--acc2));
+  transition: width 1s ease;
+}
+
+/* Badges */
+.bdg-scroll {
+  display: flex;
+  gap: 12px;
+  padding: 8px var(--side-pad) 16px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.bdg {
+  min-width: 80px;
+  aspect-ratio: 1/1.2;
+  background: var(--card2);
+  border: 1px solid var(--b);
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 12px;
+  gap: 6px;
+  text-align: center;
+  opacity: 0.4;
+  filter: grayscale(0.8);
+}
+
+.bdg.earned {
+  opacity: 1;
+  filter: grayscale(0);
+  border-color: var(--acc);
+  background: rgba(255, 215, 0, 0.04);
+}
+.bdg-ic {
+  font-size: 24px;
+}
+.bdg-nm {
+  font-size: 9px;
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.2;
+}
+
+/* Heatmap */
+.hmap-wrap {
+  margin: 0 var(--side-pad) 12px;
+  background: var(--card);
+  border: 1px solid var(--b);
+  border-radius: 16px;
+  padding: 16px;
+}
+
+.hmap-t {
+  font-size: 10px;
+  font-weight: 800;
+  color: var(--mut);
+  margin-bottom: 12px;
+}
+.hmap-g {
+  display: grid;
+  grid-template-columns: repeat(14, 1fr);
+  gap: 4px;
+}
+.hm-d {
+  aspect-ratio: 1;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.04);
+}
+.hm-d.v1 {
+  background: rgba(212, 168, 67, 0.15);
+}
+.hm-d.v2 {
+  background: rgba(212, 168, 67, 0.35);
+}
+.hm-d.v3 {
+  background: rgba(212, 168, 67, 0.6);
+}
+.hm-d.v4 {
+  background: #d4a843;
+  box-shadow: 0 0 8px rgba(212, 168, 67, 0.4);
+}
+
+/* Mastery List */
+.mast-list {
+  padding: 0 var(--side-pad);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.mi {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.mi-r {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.mi-l {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.mi-nm {
+  font-size: 12px;
+  font-weight: 800;
+  color: #fff;
+}
+.mi-p {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 11px;
+  font-weight: 700;
+}
+.mi-b {
+  height: 4px;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.mi-f {
+  height: 100%;
+  transition: width 1s ease;
+}

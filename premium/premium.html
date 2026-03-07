@@ -1,0 +1,213 @@
+<div class="screen" id="premium">
+  <div class="prem-top">
+    <div class="prem-hero-row">
+      <div class="prem-hero-badge">
+        <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+          <circle cx="20" cy="20" r="20" fill="url(#hpg1)" />
+          <polygon
+            points="20,9 23.5,17 33,17 25.5,22.5 28,31 20,26 12,31 14.5,22.5 7,17 16.5,17"
+            fill="url(#hpg2)"
+            stroke="rgba(255,255,255,0.25)"
+            stroke-width="0.6"
+          />
+          <defs>
+            <linearGradient id="hpg1" x1="0" y1="0" x2="40" y2="40">
+              <stop offset="0%" stop-color="#6e3fff" />
+              <stop offset="100%" stop-color="#b44fff" />
+            </linearGradient>
+            <linearGradient id="hpg2" x1="7" y1="9" x2="33" y2="31">
+              <stop offset="0%" stop-color="#ffe566" />
+              <stop offset="50%" stop-color="#ff9500" />
+              <stop offset="100%" stop-color="#ffd700" />
+            </linearGradient>
+          </defs>
+        </svg>
+      </div>
+      <div class="prem-hero-text">
+        <div class="prem-hero-tag">UPSC PREP PRO</div>
+        <div class="prem-title">Unlock Everything</div>
+        <div class="prem-sub">
+          Themes · Ad-free · Pro Quizzes · Daily Affairs
+        </div>
+      </div>
+      <div class="prem-hero-pill">PRO</div>
+    </div>
+    <div class="prem-stat-row">
+      <div class="prem-stat-item">
+        <div class="prem-stat-val">50K+</div>
+        <div class="prem-stat-lbl">Learners</div>
+      </div>
+      <div class="prem-stat-div"></div>
+      <div class="prem-stat-item">
+        <div class="prem-stat-val">4.9★</div>
+        <div class="prem-stat-lbl">Rating</div>
+      </div>
+      <div class="prem-stat-div"></div>
+      <div class="prem-stat-item">
+        <div class="prem-stat-val">310</div>
+        <div class="prem-stat-lbl">Days Left</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="feat-list">
+    <div class="feat">
+      <div class="feat-ic fic6">🎨</div>
+      <div class="feat-info">
+        <h4>3 Premium Themes</h4>
+        <p>Aurora · Ember · Ice — stunning glassmorphic looks.</p>
+      </div>
+      <div class="feat-lk">🔒</div>
+    </div>
+    <div class="feat">
+      <div class="feat-ic" style="background: rgba(74, 222, 128, 0.15)">🚫</div>
+      <div class="feat-info">
+        <h4>Ad-Free App</h4>
+        <p>Zero ads anywhere — pure, distraction-free studying.</p>
+      </div>
+      <div class="feat-lk">🔒</div>
+    </div>
+    <div class="feat">
+      <div class="feat-ic" style="background: rgba(34, 211, 238, 0.15)">📰</div>
+      <div class="feat-info">
+        <h4>Ad-Free Current Affairs</h4>
+        <p>Daily curated digest with no interruptions.</p>
+      </div>
+      <div class="feat-lk">🔒</div>
+    </div>
+    <div class="feat">
+      <div class="feat-ic" style="background: rgba(245, 200, 66, 0.15)">⚡</div>
+      <div class="feat-info">
+        <h4>Pro Quizzes</h4>
+        <p>Exclusive weekly battles, survival mode & bonus XP events.</p>
+      </div>
+      <div class="feat-lk">🔒</div>
+    </div>
+  </div>
+
+  <div class="th-section">
+    <div class="th-lbl">👑 Premium Themes — Live Preview</div>
+    <div class="th-grid">
+      <div
+        class="thc thc-aurora"
+        id="th-aurora"
+        onclick="pickTheme('aurora', this)"
+      >
+        <div class="th-lkbdg">🔒</div>
+        <div class="th-prev"></div>
+        <h4>Aurora</h4>
+        <p>Teal midnight</p>
+      </div>
+      <div
+        class="thc thc-ember"
+        id="th-ember"
+        onclick="pickTheme('ember', this)"
+      >
+        <div class="th-lkbdg">🔒</div>
+        <div class="th-prev"></div>
+        <h4>Ember</h4>
+        <p>Fire & dark</p>
+      </div>
+      <div class="thc thc-ice" id="th-ice" onclick="pickTheme('ice', this)">
+        <div class="th-lkbdg">🔒</div>
+        <div class="th-prev"></div>
+        <h4>Ice</h4>
+        <p>Light & crisp</p>
+      </div>
+      <div class="thc thc-moss" id="th-moss" onclick="pickTheme('moss', this)">
+        <div class="th-lkbdg">🔒</div>
+        <div class="th-prev"></div>
+        <h4>Moss</h4>
+        <p>Forest & organic</p>
+      </div>
+    </div>
+    <div
+      style="
+        margin-top: 6px;
+        text-align: center;
+        font-size: 9.5px;
+        color: var(--mut);
+        font-weight: 600;
+      "
+    >
+      Tap to preview · Buy to unlock permanently
+    </div>
+  </div>
+
+  <div class="price-section">
+    <div class="ptoggle">
+      <button class="ptb" id="ptm" onclick="setPrice('monthly', this)">
+        Monthly
+      </button>
+      <button class="ptb active" id="pty" onclick="setPrice('yearly', this)">
+        Yearly <span style="color: #4ade80; font-size: 9px">-60%</span>
+      </button>
+    </div>
+    <div class="pcard best">
+      <div class="best-badge">⚡ BEST VALUE</div>
+      <div class="pc-r1">
+        <div class="pc-plan">Pro Annual</div>
+        <div class="pc-pr">
+          <div class="pc-amt" id="pAmt">₹499<span>/yr</span></div>
+          <div class="pc-cross" id="pCross">₹999</div>
+        </div>
+      </div>
+      <div class="pc-desc">
+        Themes, ad-free app & current affairs, and all Pro quizzes — forever.
+      </div>
+      <div class="pc-chips">
+        <div class="pc-chip">✅ 3 Themes</div>
+        <div class="pc-chip">✅ Ad-Free</div>
+        <div class="pc-chip">✅ Current Affairs</div>
+        <div class="pc-chip">✅ Pro Quizzes</div>
+      </div>
+      <button class="buy-btn" onclick="doBuy('Pro Annual', '₹499')">
+        👑 Get Pro — ₹499/yr
+      </button>
+    </div>
+    <div class="pcard" style="margin-top: 12px">
+      <div class="pc-r1">
+        <div class="pc-plan">Themes Only</div>
+        <div class="pc-pr">
+          <div class="pc-amt">₹149<span>/yr</span></div>
+        </div>
+      </div>
+      <div class="pc-desc">Just the 3 premium themes. Aurora, Ember, Ice.</div>
+      <div class="pc-chips">
+        <div class="pc-chip">✅ Aurora</div>
+        <div class="pc-chip">✅ Ember</div>
+        <div class="pc-chip">✅ Ice</div>
+      </div>
+      <button
+        onclick="doBuy('Themes Pack', '₹149')"
+        style="
+          margin-top: 11px;
+          width: 100%;
+          border: 1.5px solid var(--b2);
+          border-radius: 13px;
+          padding: 13px;
+          font-size: 13px;
+          font-weight: 800;
+          color: var(--txt);
+          cursor: pointer;
+          background: var(--card);
+          backdrop-filter: blur(16px);
+          font-family: &quot;Plus Jakarta Sans&quot;, sans-serif;
+        "
+      >
+        🎨 Get Themes — ₹149/yr
+      </button>
+    </div>
+    <div
+      style="
+        text-align: center;
+        padding: 8px 0 4px;
+        font-size: 9.5px;
+        color: var(--mut);
+      "
+    >
+      🔒 Secure · Cancel anytime
+    </div>
+  </div>
+  <div style="height: 8px"></div>
+</div>
