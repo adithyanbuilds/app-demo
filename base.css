@@ -219,7 +219,7 @@ body {
 /* ════════════ PHONE FRAME ════════════ */
 .phone {
   width: min(400px, 94vw);
-  height: min(840px, 92vh);
+  height: min(1000px, 97vh);
   background: #000;
   border-radius: 54px;
   position: relative;
