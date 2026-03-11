@@ -17,9 +17,8 @@
 
 "use strict";
 
-// ── NORMALISER: called by each question-bank file after it loads ──────────────
-// Each raw bank file still uses its original variable name.
-// This function reads those globals and pushes them into UPSC_QUIZ_BANKS.
+/* ── NORMALISER ───────────────────────────────────────── */
+
 window._normQuizBanks = function () {
   if (!window.UPSC_QUIZ_BANKS) window.UPSC_QUIZ_BANKS = {};
 
@@ -50,17 +49,14 @@ window._normQuizBanks = function () {
     push("int_rel", Object.values(QUESTION_BANK_Int_Rel).flat());
 };
 
-// ── getQBank(category) ────────────────────────────────────────────────────────
-// Returns array of questions for a given category key, or all merged for 'all'.
-// Safe to call even before all files finish loading — returns what's available.
+/* ── getQBank ───────────────────────────────────────── */
+
 window.getQBank = function (topic) {
-  // Normalise any raw globals that haven't been pushed yet
   window._normQuizBanks();
 
   const banks = window.UPSC_QUIZ_BANKS || {};
 
   if (topic === "all") {
-    // Merge every category
     let pool = [];
     Object.values(banks).forEach(function (arr) {
       pool = pool.concat(arr);
@@ -74,48 +70,97 @@ window.getQBank = function (topic) {
     console.warn('getQBank: no questions for topic "' + topic + '"');
     return [];
   }
+
   return _dedupe(arr);
 };
 
-// ── getTvQs() ─────────────────────────────────────────────────────────────────
-// Returns a short shuffled set of questions for the TV Quiz slide.
+/* ── TV SLIDE MODE ───────────────────────────────────── */
+/*
+   Returns shuffled question set where each item contains:
+   { tag, question, answer }
+*/
+
 window.getTvQs = function () {
   const pool = window.getQBank("all");
-  if (!pool.length) return _fallback();
+
+  if (!pool.length) return _fallbackTv();
+
   const shuffled = [...pool].sort(function () {
     return Math.random() - 0.5;
   });
-  return shuffled.slice(0, 8).map(function (q) {
-    return Object.assign(
-      {
-        win: "🎯 Correct! Keep the streak alive!",
-        lose: q.exp || "Study this one again.",
-      },
-      q,
-    );
+
+  return shuffled.slice(0, 20).map(function (q) {
+    return {
+      tag: q.tag || "",
+      question: q.q,
+      answer: q.opts[q.ans],
+    };
   });
 };
 
-// ── shuffleArr ────────────────────────────────────────────────────────────────
+/* ── Single Random Question Provider ─────────────────── */
+
+window.getRandomTvQuestion = function () {
+  const pool = window.getQBank("all");
+
+  if (!pool.length) {
+    const fb = _fallbackTv()[0];
+    return fb;
+  }
+
+  const q = pool[Math.floor(Math.random() * pool.length)];
+
+  return {
+    tag: q.tag || "",
+    question: q.q,
+    answer: q.opts[q.ans],
+  };
+};
+
+/* ── shuffleArr ─────────────────────────────────────── */
+
 window.shuffleArr = function (arr) {
   const a = [...arr];
+
   for (let i = a.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
     [a[i], a[j]] = [a[j], a[i]];
   }
+
   return a;
 };
 
-// ── Helpers ───────────────────────────────────────────────────────────────────
+/* ── Helpers ────────────────────────────────────────── */
+
 function _dedupe(arr) {
   const seen = new Set();
+
   return arr.filter(function (q) {
     const key = q.q;
+
     if (seen.has(key)) return false;
+
     seen.add(key);
     return true;
   });
 }
+
+function _fallbackTv() {
+  return [
+    {
+      tag: "📜 POLITY",
+      question: "Which article abolishes untouchability?",
+      answer: "Article 17",
+    },
+    {
+      tag: "🗺️ GEO",
+      question: "India's longest river by total length?",
+      answer: "Ganga",
+    },
+  ];
+}
+
+/* ── Original fallback retained for quiz mode ───────── */
 
 function _fallback() {
   return [
@@ -140,7 +185,8 @@ function _fallback() {
   ];
 }
 
-// ── Quiz Mode Config ──────────────────────────────────────────────────────────
+/* ── Quiz Mode Config ───────────────────────────────── */
+
 window.MODE_CFG = {
   mixed: {
     label: "🎯 Mixed GK",
@@ -182,7 +228,6 @@ window.MODE_CFG = {
     lives: 3,
     topic: "all",
   },
-  // Category-specific modes — topic maps to a key in UPSC_QUIZ_BANKS
   history: {
     label: "🏛️ History",
     timeS: 60,

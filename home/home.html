@@ -6,7 +6,8 @@
           <div class="tv-bar">
             <div class="tv-ch">
               <div class="live-pip"></div>
-              <p>UPSC·TV</p> &nbsp;<span id="tvChNum">CH·01</span>
+              <p>UPSC·TV</p>
+              <span id="tvChNum">CH·01</span>
             </div>
             <div class="tv-clock-el" id="tvClock">09:41:00</div>
             <div class="tv-signal">
@@ -18,100 +19,243 @@
           </div>
 
           <div class="slides-wrap">
-            <div
-              class="qtv-timer-bar"
-              id="tvTimerBar"
-              style="width: 100%"
-            ></div>
+            <div class="qtv-timer-bar" id="tvTimerBar" style="width:100%"></div>
 
+            <!-- SLIDE 0 · YOUR RANK -->
             <div class="tv-slide active" id="sl-bn">
-              <div class="bn-flag">🔴 BREAKING NEWS</div>
+              <div class="bn-flag">📊 YOUR WEEK · RANK #4</div>
               <div class="bn-head" id="bnHead">
-                Arjun Singh on a<br /><em>12-Day Streak!</em> 🔥
+                Arjun Singh<br /><em>12-Day Streak!</em> 🔥
               </div>
               <div class="bn-sub" id="bnSub">
-                Accuracy 74% · Rank #4 this week
+                <strong style="color:rgba(255,255,255,0.9)">#4 of 1,248</strong>
+                this week · Accuracy 74%
+              </div>
+              <div class="bn-badges">
+                <span class="bn-badge">⚡ 2,840 XP</span>
+                <span class="bn-badge">🎯 74% ACC</span>
+                <span class="bn-badge">🔥 12 DAYS</span>
+                <span class="bn-badge" style="border-color:rgba(78,255,176,0.4);color:var(--acc)">▲ +3 RANKS</span>
               </div>
             </div>
 
-            <div
-              class="tv-slide"
-              id="sl-podium"
-              style="padding: 6px 8px 4px; justify-content: flex-start"
-            ></div>
-            <div
-              class="tv-slide"
-              id="sl-shoutout"
-              style="padding: 6px 8px 4px; justify-content: flex-start"
-            ></div>
-            <div
-              class="tv-slide"
-              id="sl-battle"
-              style="padding: 6px 8px 4px; justify-content: flex-start"
-            ></div>
-            <div
-              class="tv-slide"
-              id="sl-quiz"
-              style="padding: 7px 9px 4px; justify-content: flex-start"
-            ></div>
+            <!-- SLIDE 1 · PODIUM -->
+            <div class="tv-slide podium-slide" id="sl-podium">
+              <div class="slide-label">🏆 THIS WEEK'S LEADERBOARD</div>
+              <div class="podium-row">
+                <div class="podium-card rank-2">
+                  <div class="p-rank-num">#2</div>
+                  <div class="p-avatar">🦅</div>
+                  <div class="p-name">Priya K.</div>
+                  <div class="p-xp">3,210 XP</div>
+                  <div class="p-streak">🔥 9 days</div>
+                </div>
+                <div class="podium-card rank-1">
+                  <div class="p-crown">👑</div>
+                  <div class="p-rank-num">#1</div>
+                  <div class="p-avatar">🦁</div>
+                  <div class="p-name">Rahul V.</div>
+                  <div class="p-xp">4,580 XP</div>
+                  <div class="p-streak">🔥 21 days</div>
+                </div>
+                <div class="podium-card rank-3">
+                  <div class="p-rank-num">#3</div>
+                  <div class="p-avatar">🦊</div>
+                  <div class="p-name">Meena S.</div>
+                  <div class="p-xp">2,970 XP</div>
+                  <div class="p-streak">🔥 7 days</div>
+                </div>
+              </div>
+            </div>
 
+            <!-- SLIDE 2 · SHOUTOUTS -->
+            <div class="tv-slide shoutout-slide" id="sl-shoutout">
+              <div class="slide-label">⭐ TODAY'S SHOUTOUTS</div>
+              <div class="shout-body">
+                <div class="shout-row">
+                  <div class="shout-avatar">🎓</div>
+                  <div class="shout-info">
+                    <div class="shout-name">Arjun Singh</div>
+                    <div class="shout-stat">12-day streak · 74% accuracy</div>
+                  </div>
+                  <div class="shout-badge green">🔥 STREAK</div>
+                </div>
+                <div class="shout-row">
+                  <div class="shout-avatar">⚡</div>
+                  <div class="shout-info">
+                    <div class="shout-name">Rahul Verma</div>
+                    <div class="shout-stat">+840 XP today · Top gainer</div>
+                  </div>
+                  <div class="shout-badge yellow">⚡ GRIND</div>
+                </div>
+                <div class="shout-row">
+                  <div class="shout-avatar">🎯</div>
+                  <div class="shout-info">
+                    <div class="shout-name">Meena Shah</div>
+                    <div class="shout-stat">92% accuracy · 50 Qs today</div>
+                  </div>
+                  <div class="shout-badge red">🎯 SHARP</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- SLIDE 3 · VS CHALLENGER -->
+            <div class="tv-slide battle-slide" id="sl-battle">
+              <div class="slide-label">⚔️ NEXT WEEK'S RIVAL · WEEK 25</div>
+              <div class="battle-body">
+                <div class="battle-vs-row">
+                  <div class="battle-player winner">
+                    <div class="bp-you-tag">YOU</div>
+                    <div class="bp-avi">🐯</div>
+                    <div class="bp-name">Arjun S.</div>
+                    <div class="bp-score">#4</div>
+                    <div class="bp-acc">2,840 XP · 🔥 12d</div>
+                  </div>
+                  <div class="vs-badge">VS</div>
+                  <div class="battle-player">
+                    <div class="bp-rival-tag">RIVAL</div>
+                    <div class="bp-avi">🦊</div>
+                    <div class="bp-name">Meena S.</div>
+                    <div class="bp-score">#3</div>
+                    <div class="bp-acc">2,970 XP · 🔥 7d</div>
+                  </div>
+                </div>
+                <div class="battle-bar-wrap">
+                  <div class="battle-bar-a" id="battleBarA" style="width:49%"></div>
+                  <div class="battle-bar-b"></div>
+                </div>
+                <div class="battle-result">Gap: 130 XP · "So close — grind today!" 💪</div>
+                <div class="battle-prize">🏅 Win = +500 XP · Weekly Rank Mode</div>
+              </div>
+            </div>
+
+            <!-- SLIDE 4 · GK FLASH CARD
+                 renderTVQuiz() in index.html populates this entirely at runtime.
+                 No inline script or static content needed here. -->
+            <div class="tv-slide quiz-slide" id="sl-quiz"></div>
+
+            <!-- SLIDE 5 · HONORABLE MENTIONS + TIP (shares #sl3)
+                 renderTip() targets #tipWrap / #tipIc / #tipTitle / #tipBody / #tipCta.
+                 renderHonor() (default) shows #honorListWrap. -->
             <div class="tv-slide" id="sl3">
-              <div class="tip-tag">💡 APP GUIDE</div>
-              <div class="tip-ic" id="tipIc">🎨</div>
-              <div class="tip-title" id="tipTitle">Try Premium Themes</div>
-              <div class="tip-body" id="tipBody">
-                Tap 👑 Pro tab to preview Aurora, Ember or Ice live!
+              <div class="slide-label">🎖️ HONORABLE MENTIONS · #4–7</div>
+
+              <!-- Tip overlay — hidden by default; shown by renderTip() -->
+              <div id="tipWrap" style="display:none;flex-direction:column;align-items:center;justify-content:center;flex:1;text-align:center;gap:6px;">
+                <div id="tipIc"    style="font-size:28px;"></div>
+                <div id="tipTitle" style="font-family:'Syne',sans-serif;font-size:13px;font-weight:800;color:#fff;"></div>
+                <div id="tipBody"  style="font-size:9px;color:var(--mut);font-family:'JetBrains Mono',monospace;line-height:1.5;padding:0 4px;"></div>
+                <div id="tipCta"   style="font-family:'JetBrains Mono',monospace;font-size:8px;font-weight:800;color:var(--acc);margin-top:2px;"></div>
               </div>
-              <div class="tip-cta" id="tipCta">→ Tap 👑 Pro tab</div>
+
+              <!-- Honor list — shown by default -->
+              <div class="honor-list" id="honorListWrap">
+                <div class="honor-row you-row">
+                  <div class="honor-rank you-rank">#4</div>
+                  <div class="honor-avi">🐯</div>
+                  <div class="honor-info">
+                    <div class="honor-name">Arjun S. <span class="you-tag">YOU</span></div>
+                    <div class="honor-meta">🔥 12d · 74% acc</div>
+                  </div>
+                  <div class="honor-right">
+                    <div class="honor-xp-row">
+                      <span class="honor-xp">2,840</span>
+                      <span class="honor-mv up">▲+3</span>
+                    </div>
+                    <div class="honor-bar-wrap"><div class="honor-bar" style="width:62%"></div></div>
+                    <div class="honor-rival">vs <strong>Meena S.</strong> –130 XP</div>
+                  </div>
+                </div>
+                <div class="honor-row">
+                  <div class="honor-rank">#5</div>
+                  <div class="honor-avi">🦋</div>
+                  <div class="honor-info">
+                    <div class="honor-name">Divya R.</div>
+                    <div class="honor-meta">🔥 8d · 81% acc</div>
+                  </div>
+                  <div class="honor-right">
+                    <div class="honor-xp-row">
+                      <span class="honor-xp">2,610</span>
+                      <span class="honor-mv new">NEW</span>
+                    </div>
+                    <div class="honor-bar-wrap"><div class="honor-bar" style="width:57%"></div></div>
+                    <div class="honor-rival">vs <strong>Arjun S.</strong> –230 XP</div>
+                  </div>
+                </div>
+                <div class="honor-row">
+                  <div class="honor-rank">#6</div>
+                  <div class="honor-avi">🦉</div>
+                  <div class="honor-info">
+                    <div class="honor-name">Karan M.</div>
+                    <div class="honor-meta">🔥 5d · 69% acc</div>
+                  </div>
+                  <div class="honor-right">
+                    <div class="honor-xp-row">
+                      <span class="honor-xp">2,390</span>
+                      <span class="honor-mv down">▼-1</span>
+                    </div>
+                    <div class="honor-bar-wrap"><div class="honor-bar" style="width:52%"></div></div>
+                    <div class="honor-rival">vs <strong>Divya R.</strong> –220 XP</div>
+                  </div>
+                </div>
+                <div class="honor-row">
+                  <div class="honor-rank">#7</div>
+                  <div class="honor-avi">🐺</div>
+                  <div class="honor-info">
+                    <div class="honor-name">Sneha P.</div>
+                    <div class="honor-meta">🔥 14d · 88% acc</div>
+                  </div>
+                  <div class="honor-right">
+                    <div class="honor-xp-row">
+                      <span class="honor-xp">2,150</span>
+                      <span class="honor-mv up">▲+5</span>
+                    </div>
+                    <div class="honor-bar-wrap"><div class="honor-bar honor-bar-hot" style="width:47%"></div></div>
+                    <div class="honor-rival">vs <strong>Karan M.</strong> –240 XP</div>
+                  </div>
+                </div>
+              </div>
             </div>
 
+            <!-- SLIDE 6 · PREMIUM -->
             <div class="tv-slide" id="sl4">
               <div class="prem-tag">👑 PREMIUM SPOTLIGHT</div>
               <div class="prem-ic-tv" id="premIc">🤖</div>
-              <div class="prem-title-tv" id="premTitleTv">
-                Go Ad-Free + 3 Themes
-              </div>
+              <div class="prem-title-tv" id="premTitleTv">Go Ad-Free + 3 Themes</div>
               <div class="prem-body-tv" id="premBodyTv">
-                Remove ads, unlock Aurora · Ember · Ice themes & Pro quizzes.
+                Remove ads, unlock Aurora · Ember · Ice themes &amp; Pro quizzes.
               </div>
-              <button class="prem-btn-tv" onclick="switchTab('premium')">
-                Unlock Pro →
-              </button>
+              <button class="prem-btn-tv" onclick="switchTab('premium')">Unlock Pro →</button>
             </div>
-          </div>
+
+          </div><!-- /slides-wrap -->
 
           <div class="tv-ticker">
             <div class="ticker-track" id="tickTrack"></div>
           </div>
-        </div>
-      </div>
+        </div><!-- /tv-screen-inner -->
+      </div><!-- /tv-screen -->
 
       <div class="bezel-btm">
         <div class="tv-speaker">
-          <div class="sp-dot"></div>
-          <div class="sp-dot"></div>
-          <div class="sp-dot"></div>
-          <div class="sp-dot"></div>
-          <div class="sp-dot"></div>
-          <div class="sp-dot"></div>
+          <div class="sp-dot"></div><div class="sp-dot"></div>
+          <div class="sp-dot"></div><div class="sp-dot"></div>
+          <div class="sp-dot"></div><div class="sp-dot"></div>
         </div>
         <div class="bezel-btm-center">
           <div class="b-dots" id="tvBDots"></div>
           <div class="b-brand">UPSC·PREP·PRO</div>
         </div>
         <div class="tv-speaker">
-          <div class="sp-dot"></div>
-          <div class="sp-dot"></div>
-          <div class="sp-dot"></div>
-          <div class="sp-dot"></div>
-          <div class="sp-dot"></div>
-          <div class="sp-dot"></div>
+          <div class="sp-dot"></div><div class="sp-dot"></div>
+          <div class="sp-dot"></div><div class="sp-dot"></div>
+          <div class="sp-dot"></div><div class="sp-dot"></div>
         </div>
       </div>
-    </div>
-  </div>
+    </div><!-- /tv-bezel -->
+  </div><!-- /tv-outer -->
 
-  <div class="sec-hd" style="margin-top: 8px">Overview</div>
+  <div class="sec-hd" style="margin-top:8px">Overview</div>
   <div class="stats-row">
     <div class="stat glass">
       <div class="si">⚡</div>
@@ -131,85 +275,55 @@
   </div>
 
   <div class="home-lv-card glass">
-    <div
-      style="
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        margin-bottom: 6px;
-      "
-    >
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
       <div>
-        <div
-          style="
-            font-size: 13px;
-            font-weight: 800;
-            color: var(--txt);
-            font-family: &quot;Syne&quot;, sans-serif;
-          "
-        >
+        <div style="font-size:14px;font-weight:800;color:var(--txt);font-family:'Syne',sans-serif;">
           Level 8 · Intermediate Scholar
         </div>
-        <div style="font-size: 9.5px; color: var(--mut); margin-top: 1px">
-          660 XP to Level 9
-        </div>
+        <div style="font-size:11px;color:var(--mut);margin-top:2px;">660 XP to Level 9</div>
       </div>
-      <div
-        style="
-          font-family: &quot;JetBrains Mono&quot;, monospace;
-          font-size: 13px;
-          font-weight: 700;
-          color: var(--acc3);
-        "
-      >
+      <div style="font-family:'JetBrains Mono',monospace;font-size:14px;font-weight:700;color:var(--acc3);">
         2,840
       </div>
     </div>
     <div class="xp-track">
-      <div class="xp-fill" id="hXpFill" style="width: 0%"></div>
+      <div class="xp-fill" id="hXpFill" style="width:0%"></div>
     </div>
-    <div
-      style="
-        display: flex;
-        justify-content: space-between;
-        margin-top: 4px;
-        font-size: 8.5px;
-        color: var(--mut);
-      "
-    >
+    <div style="display:flex;justify-content:space-between;margin-top:5px;font-size:10px;color:var(--mut);">
       <span>2,840 / 3,500 XP</span><span>81% to next level</span>
     </div>
   </div>
 
-  <div class="sec-hd" style="margin-top: 6px">
+  <div class="sec-hd" style="margin-top:6px">
     Topics <a onclick="switchTab('learn')">All →</a>
   </div>
   <div class="chip-rail">
     <div class="chip glass" onclick="switchTab('learn')">
       <div class="chip-i">🏛️</div>
       <div class="chip-n">History</div>
-      <div class="chip-b"><div class="chip-f" style="width: 65%"></div></div>
+      <div class="chip-b"><div class="chip-f" style="width:65%"></div></div>
     </div>
     <div class="chip glass" onclick="switchTab('learn')">
       <div class="chip-i">🗺️</div>
       <div class="chip-n">Geo</div>
-      <div class="chip-b"><div class="chip-f" style="width: 40%"></div></div>
+      <div class="chip-b"><div class="chip-f" style="width:40%"></div></div>
     </div>
     <div class="chip glass" onclick="switchTab('learn')">
       <div class="chip-i">📜</div>
       <div class="chip-n">Polity</div>
-      <div class="chip-b"><div class="chip-f" style="width: 30%"></div></div>
+      <div class="chip-b"><div class="chip-f" style="width:30%"></div></div>
     </div>
     <div class="chip glass" onclick="switchTab('learn')">
       <div class="chip-i">📈</div>
       <div class="chip-n">Economy</div>
-      <div class="chip-b"><div class="chip-f" style="width: 20%"></div></div>
+      <div class="chip-b"><div class="chip-f" style="width:20%"></div></div>
     </div>
     <div class="chip glass" onclick="switchTab('learn')">
       <div class="chip-i">🔬</div>
       <div class="chip-n">Science</div>
-      <div class="chip-b"><div class="chip-f" style="width: 55%"></div></div>
+      <div class="chip-b"><div class="chip-f" style="width:55%"></div></div>
     </div>
   </div>
-  <div style="height: 10px"></div>
+
+  <div style="height:10px"></div>
 </div>

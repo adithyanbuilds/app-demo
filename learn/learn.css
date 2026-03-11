@@ -7,14 +7,14 @@
 }
 
 .scr-hd h2 {
-  font-size: 24px;
+  font-size: 26px;
   font-weight: 900;
   font-family: "Syne", sans-serif;
   margin-bottom: 4px;
 }
 
 .scr-hd p {
-  font-size: 12px;
+  font-size: 13px;
   color: var(--mut);
 }
 
@@ -38,22 +38,23 @@
 }
 
 .gc-ic {
-  font-size: 24px;
+  font-size: 26px;
   margin-bottom: 4px;
 }
 .gc-name {
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 900;
   font-family: "Syne", sans-serif;
 }
 .gc-meta {
-  font-size: 9.5px;
+  font-size: 10.5px;
   color: var(--mut);
 }
 .gc-xp {
-  font-size: 10px;
+  font-size: 11px;
   font-weight: 800;
   margin-top: 4px;
+  color: var(--acc);
 }
 .gc-gold {
   color: var(--gold);
@@ -97,14 +98,14 @@
 }
 
 .ssc-ic {
-  width: 44px;
-  height: 44px;
-  background: rgba(255, 255, 255, 0.04);
+  width: 46px;
+  height: 46px;
+  background: rgba(255, 255, 255, 0.05);
   border-radius: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 22px;
+  font-size: 24px;
   flex-shrink: 0;
 }
 
@@ -113,14 +114,14 @@
   min-width: 0;
 }
 .ssc-nm {
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 900;
   font-family: "Syne", sans-serif;
 }
 .ssc-ct {
-  font-size: 9.5px;
+  font-size: 10.5px;
   color: var(--mut);
-  margin-top: 2px;
+  margin-top: 3px;
 }
 
 .ssc-bar {
@@ -154,17 +155,17 @@
   flex: 1;
 }
 .sr-subject-nm {
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 900;
   font-family: "Syne", sans-serif;
 }
 .sr-progress-txt {
-  font-size: 9.5px;
+  font-size: 10.5px;
   color: var(--mut);
 }
 .sr-counter {
   font-family: "JetBrains Mono", monospace;
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 700;
   color: var(--mut2);
 }
@@ -209,30 +210,30 @@
 }
 
 .sr-card-tag {
-  font-size: 9px;
+  font-size: 10px;
   font-weight: 800;
   letter-spacing: 1.5px;
   color: var(--acc);
   text-transform: uppercase;
 }
 .sr-card-q {
-  font-size: 17px;
+  font-size: 18px;
   font-weight: 800;
   font-family: "Syne", sans-serif;
-  line-height: 1.4;
+  line-height: 1.45;
   color: #fff;
 }
 .sr-card-ans-lbl {
-  font-size: 9px;
+  font-size: 10px;
   font-weight: 800;
   color: #4ade80;
   text-transform: uppercase;
   margin-top: 12px;
 }
 .sr-card-ans {
-  font-size: 14px;
-  line-height: 1.6;
-  color: rgba(255, 255, 255, 0.8);
+  font-size: 14.5px;
+  line-height: 1.65;
+  color: rgba(255, 255, 255, 0.85);
 }
 
 .sr-nav {

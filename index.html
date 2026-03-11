@@ -18,7 +18,7 @@
     <!-- ════ BASE (always at root, contains :root, themes, resets) ═══════════ -->
     <link rel="stylesheet" href="base.css" />
 
-    <!-- ════ COMPONENT CSS (loaded from their subfolders) ════════════════════ -->
+    <!-- ════ COMPONENT CSS ════════════════════════════════════════════════════ -->
     <link rel="stylesheet" href="home/home.css" />
     <link rel="stylesheet" href="ranks/leaderboard.css" />
     <link rel="stylesheet" href="learn/learn.css" />
@@ -51,16 +51,11 @@
         animation: _spin 1s linear infinite;
       }
       @keyframes _spin {
-        to {
-          transform: rotate(360deg);
-        }
+        to { transform: rotate(360deg); }
       }
     </style>
 
-    <!-- ════ QUIZ DATA — folder index.js files auto-inject their .js files ═════
-         Each index.js loads all .js files in its folder into window.UPSC_QUIZ_BANKS.
-         To add more questions: drop a .js in the folder + add filename to that index.js
-    ══════════════════════════════════════════════════════════════════════════════ -->
+    <!-- ════ QUIZ DATA ════════════════════════════════════════════════════════ -->
     <script src="quiz-context/quiz-history/index.js"></script>
     <script src="quiz-context/quiz-geography/index.js"></script>
     <script src="quiz-context/quiz-polity/index.js"></script>
@@ -69,17 +64,12 @@
     <script src="quiz-context/quiz-envirounment/index.js"></script>
     <script src="quiz-context/quiz-international/index.js"></script>
 
-    <!-- ════ SUBJECT READER DATA — folder index.js files auto-inject GS paper files
-         Each index.js loads all GsPaperX_YYYY arrays.
-         To add more cards: drop a .js in the folder + add filename to that index.js
-    ══════════════════════════════════════════════════════════════════════════════ -->
+    <!-- ════ SUBJECT READER DATA ═════════════════════════════════════════════ -->
     <script src="subject-context/gs-paper-1/index.js"></script>
     <script src="subject-context/gs-paper-2/index.js"></script>
 
     <!-- ════ ENGINES ═════════════════════════════════════════════════════════ -->
-    <!-- Quiz Engine: getQBank(), startQuizMode(), getTvQs() etc. -->
     <script src="quiz-engine.js"></script>
-    <!-- Subject Engine: getAllGsCards(), openSubjectReader() etc. -->
     <script src="subject-engine.js"></script>
   </head>
 
@@ -104,29 +94,19 @@
         <div class="icons">📶 🪫</div>
       </div>
 
-      <!-- Screens are fetched and injected here -->
+      <!-- Screens injected here by loadComponents() -->
       <div
         id="screens-container"
-        style="
-          flex: 1;
-          display: flex;
-          flex-direction: column;
-          overflow: hidden;
-          position: relative;
-        "
+        style="flex:1;display:flex;flex-direction:column;overflow:hidden;position:relative;"
       ></div>
 
       <!-- ── Bottom Nav ────────────────────────────────────────────────────── -->
       <div class="bnav">
         <button class="nb active" id="nav-home" onclick="switchTab('home')">
-          <div class="nb-i">🏡</div> 
-          <div class="nb-l">Home</div> 
+          <div class="nb-i">🏡</div>
+          <div class="nb-l">Home</div>
         </button>
-        <button
-          class="nb"
-          id="nav-leaderboard"
-          onclick="switchTab('leaderboard')"
-        >
+        <button class="nb" id="nav-leaderboard" onclick="switchTab('leaderboard')">
           <div class="nb-i">🏆</div>
           <div class="nb-l">Ranks</div>
         </button>
@@ -138,31 +118,13 @@
           <div class="nb-i">📊</div>
           <div class="nb-l">Stats</div>
         </button>
-        <button
-          class="nb"
-          id="nav-premium"
-          onclick="switchTab('premium')"
-          style="position: relative"
-        >
+        <button class="nb" id="nav-premium" onclick="switchTab('premium')" style="position:relative">
           <div class="nb-i">👑</div>
           <div class="nb-l">Pro</div>
-          <div
-            style="
-              position: absolute;
-              top: 7px;
-              right: 12px;
-              width: 7px;
-              height: 7px;
-              background: var(--gold);
-              border-radius: 50%;
-              border: 1.5px solid var(--bg);
-              box-shadow: 0 0 5px var(--gold);
-            "
-          ></div>
+          <div style="position:absolute;top:7px;right:12px;width:7px;height:7px;background:var(--gold);border-radius:50%;border:1.5px solid var(--bg);box-shadow:0 0 5px var(--gold);"></div>
         </button>
       </div>
-    </div>
-    <!-- /phone -->
+    </div><!-- /phone -->
 
     <div class="xp-toast" id="xpToast"></div>
     <div class="conf-w" id="confW"></div>
@@ -171,7 +133,7 @@
     <script>
       "use strict";
 
-      // ── Component Loader: fetches HTML from subfolders ────────────────────────
+      // ── Component Loader ──────────────────────────────────────────────────
       async function loadComponents() {
         const components = [
           "home/home.html",
@@ -197,17 +159,15 @@
           console.error("Component load error:", err);
           document.getElementById("app-loader").innerHTML =
             '<div style="text-align:center;padding:20px;">⚠️ Load error. Please use a local server (e.g. Live Server or python -m http.server).<br><br><small>' +
-            err.message +
-            "</small></div>";
+            err.message + "</small></div>";
         }
       }
 
-      // ── Core App Init ─────────────────────────────────────────────────────────
+      // ── Core App Init ─────────────────────────────────────────────────────
       function initApp() {
-        // Normalise any quiz bank globals that loaded before this point
         if (window._normQuizBanks) window._normQuizBanks();
 
-        // ── TV BROADCAST DATA ─────────────────────────────────────────────────
+        // ── TV BROADCAST DATA ─────────────────────────────────────────────
         window.bnData = [
           {
             head: "Arjun Singh on a<br/><em>12-Day Streak!</em> 🔥",
@@ -233,145 +193,48 @@
 
         window.podiumData = [
           {
-            rank: 1,
-            av: "P",
-            name: "Priya Sharma",
-            xp: "4,200",
-            color: "#f59e0b",
-            badge: "👑 CHAMPION OF THE WEEK",
-            stars: 5,
-            streak: "🔥 18-day streak",
-            accuracy: "94% accuracy",
+            rank: 1, av: "P", name: "Priya Sharma", xp: "4,200", color: "#f59e0b",
+            badge: "👑 CHAMPION OF THE WEEK", stars: 5,
+            streak: "🔥 18-day streak", accuracy: "94% accuracy",
             taunt: "She answered every question others skipped.",
-            challenge:
-              "Start a 5-day streak today — your first step to the throne.",
+            challenge: "Start a 5-day streak today — your first step to the throne.",
           },
           {
-            rank: 2,
-            av: "R",
-            name: "Rahul Verma",
-            xp: "3,680",
-            color: "#6366f1",
-            badge: "🥈 RUNNER-UP — SO CLOSE",
-            stars: 4,
-            streak: "⚡ 9-day streak",
-            accuracy: "88% accuracy",
+            rank: 2, av: "R", name: "Rahul Verma", xp: "3,680", color: "#6366f1",
+            badge: "🥈 RUNNER-UP — SO CLOSE", stars: 4,
+            streak: "⚡ 9-day streak", accuracy: "88% accuracy",
             taunt: "Only 520 XP behind #1. One focused week could flip this.",
-            challenge:
-              "Do 2 quizzes today — close the gap before the week ends!",
+            challenge: "Do 2 quizzes today — close the gap before the week ends!",
           },
           {
-            rank: 3,
-            av: "M",
-            name: "Meera K.",
-            xp: "3,100",
-            color: "#ec4899",
-            badge: "🥉 PODIUM HOLDER",
-            stars: 3,
-            streak: "🛡️ 7-day streak",
-            accuracy: "81% accuracy",
+            rank: 3, av: "M", name: "Meera K.", xp: "3,100", color: "#ec4899",
+            badge: "🥉 PODIUM HOLDER", stars: 3,
+            streak: "🛡️ 7-day streak", accuracy: "81% accuracy",
             taunt: "She's holding YOUR spot. Just 260 XP away.",
             challenge: "Beat Meera — complete today's challenge for +150 XP!",
           },
         ];
 
         window.shoutoutData = [
-          {
-            rank: 4,
-            av: "A",
-            name: "YOU · Arjun",
-            xp: "2,840",
-            color: "#b44fff",
-            you: true,
-            msg: "So close to the podium! 260 XP and this could be you on that screen 🔥",
-          },
-          {
-            rank: 5,
-            av: "S",
-            name: "Suresh Nair",
-            xp: "2,600",
-            color: "#14b8a6",
-            msg: "Top 5 and climbing! A few more sessions and Suresh cracks the podium ⚡",
-          },
-          {
-            rank: 6,
-            av: "A",
-            name: "Ananya Rao",
-            xp: "2,380",
-            color: "#f43f5e",
-            msg: "From #8 to #6 this week — Ananya is on a tear! 🚀",
-          },
-          {
-            rank: 7,
-            av: "V",
-            name: "Vikram S.",
-            xp: "2,150",
-            color: "#8b5cf6",
-            msg: "Just broke into the top 10! The climb has only begun 💪",
-          },
-          {
-            rank: 8,
-            av: "D",
-            name: "Divya M.",
-            xp: "1,920",
-            color: "#f97316",
-            msg: "Consistent grinder — zero missed daily quizzes this week 📚",
-          },
-          {
-            rank: 9,
-            av: "K",
-            name: "Kiran T.",
-            xp: "1,740",
-            color: "#06b6d4",
-            msg: "Top 10 in just 3 weeks of joining. One to watch 🌟",
-          },
-          {
-            rank: 10,
-            av: "N",
-            name: "Neha P.",
-            xp: "1,580",
-            color: "#a3e635",
-            msg: "Cracked the top 10 today! Late starters can fly too 🎯",
-          },
+          { rank: 4,  av: "A", name: "YOU · Arjun", xp: "2,840", color: "#b44fff", you: true,  msg: "So close to the podium! 260 XP and this could be you on that screen 🔥" },
+          { rank: 5,  av: "S", name: "Suresh Nair", xp: "2,600", color: "#14b8a6", msg: "Top 5 and climbing! A few more sessions and Suresh cracks the podium ⚡" },
+          { rank: 6,  av: "A", name: "Ananya Rao",  xp: "2,380", color: "#f43f5e", msg: "From #8 to #6 this week — Ananya is on a tear! 🚀" },
+          { rank: 7,  av: "V", name: "Vikram S.",   xp: "2,150", color: "#8b5cf6", msg: "Just broke into the top 10! The climb has only begun 💪" },
+          { rank: 8,  av: "D", name: "Divya M.",    xp: "1,920", color: "#f97316", msg: "Consistent grinder — zero missed daily quizzes this week 📚" },
+          { rank: 9,  av: "K", name: "Kiran T.",    xp: "1,740", color: "#06b6d4", msg: "Top 10 in just 3 weeks of joining. One to watch 🌟" },
+          { rank: 10, av: "N", name: "Neha P.",     xp: "1,580", color: "#a3e635", msg: "Cracked the top 10 today! Late starters can fly too 🎯" },
         ];
 
         window.tips = [
-          {
-            ic: "🎨",
-            title: "Try Premium Themes",
-            body: "Tap 👑 Pro tab → tap any theme card to preview Aurora, Ember or Ice live!",
-            cta: "→ Tap 👑 Pro tab",
-          },
-          {
-            ic: "📊",
-            title: "Check Your Stats",
-            body: "Visit 📊 Stats for your mastery heatmap, level progress and badge collection.",
-            cta: "→ Tap 📊 Stats tab",
-          },
-          {
-            ic: "🏆",
-            title: "Climb the Leaderboard",
-            body: "You're Rank #4 — just 260 XP from Rank 3! Check 🏆 Ranks tab.",
-            cta: "→ Tap 🏆 Ranks tab",
-          },
+          { ic: "🎨", title: "Try Premium Themes",    body: "Tap 👑 Pro tab → tap any theme card to preview Aurora, Ember or Ice live!", cta: "→ Tap 👑 Pro tab" },
+          { ic: "📊", title: "Check Your Stats",      body: "Visit 📊 Stats for your mastery heatmap, level progress and badge collection.", cta: "→ Tap 📊 Stats tab" },
+          { ic: "🏆", title: "Climb the Leaderboard", body: "You're Rank #4 — just 260 XP from Rank 3! Check 🏆 Ranks tab.", cta: "→ Tap 🏆 Ranks tab" },
         ];
 
         window.premFeats = [
-          {
-            ic: "🎨",
-            title: "3 Premium Themes",
-            body: "Aurora, Ember, Ice — stunning glassmorphic experiences.",
-          },
-          {
-            ic: "🚫",
-            title: "Go Ad-Free",
-            body: "Remove all ads and study without interruptions.",
-          },
-          {
-            ic: "📰",
-            title: "Daily Current Affairs",
-            body: "Curated news digest every morning — exactly what UPSC tests.",
-          },
+          { ic: "🎨", title: "3 Premium Themes",      body: "Aurora, Ember, Ice — stunning glassmorphic experiences." },
+          { ic: "🚫", title: "Go Ad-Free",            body: "Remove all ads and study without interruptions." },
+          { ic: "📰", title: "Daily Current Affairs", body: "Curated news digest every morning — exactly what UPSC tests." },
         ];
 
         window.tickerItems = [
@@ -385,7 +248,7 @@
           { txt: "💡 Economy 20% — study today" },
         ];
 
-        // ── TV ENGINE DATA (duplication of tickerItems into the ticker DOM) ───
+        // ── Ticker ───────────────────────────────────────────────────────
         const tt = document.getElementById("tickTrack");
         if (tt)
           tt.innerHTML = [...tickerItems, ...tickerItems]
@@ -395,13 +258,13 @@
             )
             .join("");
 
-        // ── TV Slides ─────────────────────────────────────────────────────────
+        // ── TV Slides config ─────────────────────────────────────────────
         window.slides = [
-          { type: "bn", idx: 0, ms: 8000 },
-          { type: "bn", idx: 1, ms: 8000 },
-          { type: "podium", idx: 0, ms: 8000 },
-          { type: "podium", idx: 1, ms: 8000 },
-          { type: "podium", idx: 2, ms: 8000 },
+          { type: "bn",       idx: 0, ms: 8000 },
+          { type: "bn",       idx: 1, ms: 8000 },
+          { type: "podium",   idx: 0, ms: 8000 },
+          { type: "podium",   idx: 1, ms: 8000 },
+          { type: "podium",   idx: 2, ms: 8000 },
           { type: "shoutout", idx: 0, ms: 2500 },
           { type: "shoutout", idx: 1, ms: 2500 },
           { type: "shoutout", idx: 2, ms: 2500 },
@@ -409,27 +272,23 @@
           { type: "shoutout", idx: 4, ms: 2500 },
           { type: "shoutout", idx: 5, ms: 2500 },
           { type: "shoutout", idx: 6, ms: 2500 },
-          { type: "battle", ms: 7000 },
-          { type: "quiz", ms: 26000 },
-          { type: "tip", idx: 0, ms: 9000 },
-          { type: "prem", idx: 0, ms: 9000 },
+          { type: "battle",           ms: 7000 },
+          { type: "quiz",             ms: 12000 },
+          { type: "tip",      idx: 0, ms: 9000 },
+          { type: "prem",     idx: 0, ms: 9000 },
         ];
         window.stepIdx = 0;
         window.tvTimer = null;
-        window.tvQuizTimer = null;
-        window.TV_Q_SECS = 22;
-        window.tvQSecs = 22;
-        window.tvQIdx = 0;
 
-        // ── TV Render Functions ───────────────────────────────────────────────
+        // ── TV Render Functions ───────────────────────────────────────────
         window.renderStep = function (step) {
-          if (step.type === "bn") renderBN(step.idx);
-          if (step.type === "podium") renderPodium(step.idx);
+          if (step.type === "bn")       renderBN(step.idx);
+          if (step.type === "podium")   renderPodium(step.idx);
           if (step.type === "shoutout") renderShoutout(step.idx);
-          if (step.type === "battle") renderBattle();
-          if (step.type === "quiz") renderTVQuiz();
-          if (step.type === "tip") renderTip(step.idx % tips.length);
-          if (step.type === "prem") renderPrem(step.idx % premFeats.length);
+          if (step.type === "battle")   renderBattle();
+          if (step.type === "quiz")     renderTVQuiz();
+          if (step.type === "tip")      renderTip(step.idx % tips.length);
+          if (step.type === "prem")     renderPrem(step.idx % premFeats.length);
         };
 
         window.renderBN = function (idx) {
@@ -448,48 +307,33 @@
           const gCfg = {
             1: {
               bg: "linear-gradient(145deg,rgba(255,210,0,0.22),rgba(255,140,0,0.14),rgba(255,60,0,0.07))",
-              border: "rgba(255,210,0,0.45)",
-              glow: "rgba(255,180,0,0.28)",
+              border: "rgba(255,210,0,0.45)", glow: "rgba(255,180,0,0.28)",
               barGrad: "linear-gradient(90deg,#ff9500,#ffd700,#ffe566)",
               namGrad: "linear-gradient(90deg,#ffd700,#ffcc00,#ff9500,#ffd700)",
               xpCol: "linear-gradient(135deg,#ffd700,#ff9500)",
-              badgeBg: "rgba(255,180,0,0.2)",
-              badgeCol: "#ffd700",
-              badgeBdr: "rgba(255,200,0,0.3)",
-              ringCol: "rgba(255,200,0,0.8)",
-              ringShad: "0 0 14px rgba(255,180,0,0.55)",
-              rankTag: "🥇",
-              rankTxt: "RANK #1 · CHAMPION",
+              badgeBg: "rgba(255,180,0,0.2)", badgeCol: "#ffd700", badgeBdr: "rgba(255,200,0,0.3)",
+              ringCol: "rgba(255,200,0,0.8)", ringShad: "0 0 14px rgba(255,180,0,0.55)",
+              rankTag: "🥇", rankTxt: "RANK #1 · CHAMPION",
             },
             2: {
               bg: "linear-gradient(145deg,rgba(210,215,240,0.18),rgba(160,170,210,0.1),rgba(100,110,180,0.06))",
-              border: "rgba(200,205,235,0.38)",
-              glow: "rgba(180,185,220,0.2)",
+              border: "rgba(200,205,235,0.38)", glow: "rgba(180,185,220,0.2)",
               barGrad: "linear-gradient(90deg,#8892c0,#c8ccec,#e0e4ff)",
               namGrad: "linear-gradient(90deg,#c8cce8,#e0e4ff,#a0a8d0,#c8cce8)",
               xpCol: "linear-gradient(135deg,#c0c4e0,#e0e4ff)",
-              badgeBg: "rgba(200,205,235,0.15)",
-              badgeCol: "#c8cce8",
-              badgeBdr: "rgba(200,205,235,0.25)",
-              ringCol: "rgba(200,205,235,0.6)",
-              ringShad: "0 0 12px rgba(180,185,220,0.35)",
-              rankTag: "🥈",
-              rankTxt: "RANK #2 · RUNNER-UP",
+              badgeBg: "rgba(200,205,235,0.15)", badgeCol: "#c8cce8", badgeBdr: "rgba(200,205,235,0.25)",
+              ringCol: "rgba(200,205,235,0.6)", ringShad: "0 0 12px rgba(180,185,220,0.35)",
+              rankTag: "🥈", rankTxt: "RANK #2 · RUNNER-UP",
             },
             3: {
               bg: "linear-gradient(145deg,rgba(210,140,70,0.2),rgba(180,100,40,0.12),rgba(120,60,20,0.06))",
-              border: "rgba(210,140,70,0.38)",
-              glow: "rgba(190,120,50,0.22)",
+              border: "rgba(210,140,70,0.38)", glow: "rgba(190,120,50,0.22)",
               barGrad: "linear-gradient(90deg,#a0522d,#cd7f32,#e8a060)",
               namGrad: "linear-gradient(90deg,#e8a060,#cd7f32,#a05020,#e8a060)",
               xpCol: "linear-gradient(135deg,#cd7f32,#e8a060)",
-              badgeBg: "rgba(200,120,50,0.15)",
-              badgeCol: "#e8a060",
-              badgeBdr: "rgba(200,120,50,0.25)",
-              ringCol: "rgba(205,127,50,0.65)",
-              ringShad: "0 0 12px rgba(190,120,50,0.3)",
-              rankTag: "🥉",
-              rankTxt: "RANK #3 · PODIUM",
+              badgeBg: "rgba(200,120,50,0.15)", badgeCol: "#e8a060", badgeBdr: "rgba(200,120,50,0.25)",
+              ringCol: "rgba(205,127,50,0.65)", ringShad: "0 0 12px rgba(190,120,50,0.3)",
+              rankTag: "🥉", rankTxt: "RANK #3 · PODIUM",
             },
           };
           const g = gCfg[d.rank];
@@ -532,12 +376,14 @@
           const d = shoutoutData[idx];
           const el = document.getElementById("sl-shoutout");
           if (!el) return;
-          el.innerHTML = `<div style="padding:8px;"><div style="font-size:10px;font-weight:800;color:#00d4ff;margin-bottom:6px;">📣 HONOURABLE MENTIONS</div>
-          <div style="display:flex;align-items:center;gap:10px;background:rgba(255,255,255,0.05);padding:10px;border-radius:12px;">
-            <div style="width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,${d.color},#000);display:flex;align-items:center;justify-content:center;font-weight:900;color:#fff;">${d.av}</div>
-            <div><div style="font-size:12px;font-weight:800;">${d.name}</div><div style="font-size:10px;color:rgba(255,255,255,0.5);">${d.xp} XP</div></div>
-          </div>
-          <div style="margin-top:8px;font-size:10px;line-height:1.4;">${d.msg}</div></div>`;
+          el.innerHTML = `<div style="padding:8px;">
+            <div style="font-size:10px;font-weight:800;color:#00d4ff;margin-bottom:6px;">📣 HONOURABLE MENTIONS</div>
+            <div style="display:flex;align-items:center;gap:10px;background:rgba(255,255,255,0.05);padding:10px;border-radius:12px;">
+              <div style="width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,${d.color},#000);display:flex;align-items:center;justify-content:center;font-weight:900;color:#fff;">${d.av}</div>
+              <div><div style="font-size:12px;font-weight:800;">${d.name}</div><div style="font-size:10px;color:rgba(255,255,255,0.5);">${d.xp} XP</div></div>
+            </div>
+            <div style="margin-top:8px;font-size:10px;line-height:1.4;">${d.msg}</div>
+          </div>`;
           showSlide("sl-shoutout");
         };
 
@@ -545,102 +391,55 @@
           showSlide("sl-battle");
         };
 
+        // ── TV Quiz: simple flash card — question then answer, no timer UI ──
         window.renderTVQuiz = function () {
-          clearInterval(tvQuizTimer);
-          const tvQs = getTvQs(); // from quiz-engine.js — reads from UPSC_QUIZ_BANKS
-          const q = tvQs[tvQIdx % tvQs.length];
+          const q = getRandomTvQuestion(); // from quiz-engine.js
           const el = document.getElementById("sl-quiz");
           if (!el || !q) return;
+
           el.innerHTML = `
-          <div class="qtv-header">
-            <div class="qtv-mode"><div class="qtv-mode-dot"></div>GK QUIZ · LIVE</div>
-            <div class="qtv-countdown" id="tvCountdownWrap">
-              <svg viewBox="0 0 30 30" width="30" height="30">
-                <circle class="qtv-countdown-track" cx="15" cy="15" r="12"/>
-                <circle class="qtv-countdown-fill" id="tvCountdownArc" cx="15" cy="15" r="12" stroke="#00ff88" stroke-dasharray="75.4" stroke-dashoffset="0"/>
-              </svg>
-              <div class="qtv-countdown-num" id="tvCountdownNum">22</div>
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+              <div style="font-size:10px;font-weight:800;color:#00d4ff;font-family:'JetBrains Mono',monospace;letter-spacing:1px;">
+                📺 GK FLASH CARD
+              </div>
+              <div style="font-size:9px;color:rgba(255,255,255,0.4);font-family:'JetBrains Mono',monospace;">
+                ${q.tag || "UPSC PREP"}
+              </div>
             </div>
-          </div>
-          <div class="qtv-q">${q.q}</div>
-          <div class="qtv-opts" id="tvQOpts">${q.opts.map((o, i) => `<div class="qtv-opt" data-i="${i}"><span class="qtv-key">${String.fromCharCode(65 + i)}</span>${o}</div>`).join("")}</div>
-          <div id="tvQExp"></div>
-          <div class="qtv-xp-burst" id="tvXpBurst">+25 XP ⚡</div>`;
-          el.querySelectorAll(".qtv-opt").forEach((opt) => {
-            opt.onclick = () =>
-              _revealTVAnswer(parseInt(opt.dataset.i), q.ans, q);
-          });
-          tvQSecs = TV_Q_SECS;
-          _updateTVCountdown();
-          const bar = document.getElementById("tvTimerBar");
-          if (bar) {
-            bar.style.width = "100%";
-            bar.style.background = "linear-gradient(90deg,#00ff88,#00d4ff)";
-          }
-          tvQuizTimer = setInterval(() => {
-            tvQSecs--;
-            _updateTVCountdown();
-            const pct = (tvQSecs / TV_Q_SECS) * 100;
-            if (bar) {
-              bar.style.width = Math.max(0, pct) + "%";
-              if (tvQSecs <= 5)
-                bar.style.background = "linear-gradient(90deg,#ff4444,#ff8800)";
-              else if (tvQSecs <= 9)
-                bar.style.background = "linear-gradient(90deg,#ffd700,#ff9500)";
-            }
-            if (tvQSecs <= 0) {
-              clearInterval(tvQuizTimer);
-              _revealTVAnswer(-1, q.ans, q);
-              tvQIdx++;
-            }
-          }, 1000);
+            <div style="font-family:'Syne',sans-serif;font-size:14px;font-weight:800;line-height:1.35;color:#fff;margin-bottom:12px;">
+              ${q.question}
+            </div>
+            <div style="
+              background:rgba(0,255,140,0.12);
+              border:1px solid rgba(0,255,140,0.35);
+              padding:10px 12px;
+              border-radius:10px;
+              font-family:'JetBrains Mono',monospace;
+              font-size:13px;
+              font-weight:800;
+              color:#00ff88;
+            ">
+              ✅ ${q.answer}
+            </div>
+          `;
+
           showSlide("sl-quiz");
         };
 
-        function _updateTVCountdown() {
-          const num = document.getElementById("tvCountdownNum");
-          const arc = document.getElementById("tvCountdownArc");
-          if (!num || !arc) return;
-          arc.style.strokeDashoffset = 75.4 * (1 - tvQSecs / TV_Q_SECS);
-          arc.style.stroke =
-            tvQSecs <= 5 ? "#ff4444" : tvQSecs <= 9 ? "#ffd700" : "#00ff88";
-          num.textContent = tvQSecs;
-          num.style.color =
-            tvQSecs <= 5 ? "#ff6666" : tvQSecs <= 9 ? "#ffd700" : "#fff";
-        }
-
-        function _revealTVAnswer(chosen, correct, q) {
-          clearInterval(tvQuizTimer);
-          document.querySelectorAll(".qtv-opt").forEach((el, i) => {
-            if (i === correct) el.classList.add("correct");
-            else if (i === chosen) el.classList.add("wrong");
-          });
-          const ok = chosen === correct;
-          const burst = document.getElementById("tvXpBurst");
-          if (burst) {
-            burst.textContent = ok ? "+25 XP ⚡" : "0 XP";
-            burst.style.color = ok ? "#00ff88" : "#ff5555";
-            burst.className = "qtv-xp-burst pop";
-          }
-          const expEl = document.getElementById("tvQExp");
-          if (expEl && q) {
-            const verdict = ok
-              ? "✅ Correct!"
-              : chosen === -1
-                ? "⏱ Time is up!"
-                : "❌ Not quite!";
-            expEl.innerHTML = `<div class="qtv-exp-bar ${ok ? "qtv-exp-win" : "qtv-exp-lose"}"><div class="qtv-exp-verdict">${verdict}</div><div class="qtv-exp-msg">${ok ? q.win || "" : q.lose || ""}</div><div class="qtv-exp-fact">💡 ${q.exp || ""}</div></div>`;
-          }
-        }
-
+        // ── Tip slide: toggles between tip content and honor list ────────
         window.renderTip = function (idx) {
           const t = tips[idx];
           const el = document.getElementById("sl3");
           if (!el) return;
-          el.querySelector("#tipIc").textContent = t.ic;
-          el.querySelector("#tipTitle").textContent = t.title;
-          el.querySelector("#tipBody").textContent = t.body;
-          el.querySelector("#tipCta").textContent = t.cta;
+          // Show tip wrapper, hide honor list
+          const tipWrap    = document.getElementById("tipWrap");
+          const honorWrap  = document.getElementById("honorListWrap");
+          if (tipWrap)   tipWrap.style.display   = "flex";
+          if (honorWrap) honorWrap.style.display  = "none";
+          document.getElementById("tipIc").textContent    = t.ic;
+          document.getElementById("tipTitle").textContent  = t.title;
+          document.getElementById("tipBody").textContent   = t.body;
+          document.getElementById("tipCta").textContent    = t.cta;
           showSlide("sl3");
         };
 
@@ -648,30 +447,36 @@
           const p = premFeats[idx];
           const el = document.getElementById("sl4");
           if (!el) return;
-          el.querySelector("#premIc").textContent = p.ic;
-          el.querySelector("#premTitleTv").textContent = p.title;
-          el.querySelector("#premBodyTv").textContent = p.body;
+          document.getElementById("premIc").textContent      = p.ic;
+          document.getElementById("premTitleTv").textContent = p.title;
+          document.getElementById("premBodyTv").textContent  = p.body;
           showSlide("sl4");
         };
 
         window.showSlide = function (id) {
-          [
-            "sl-bn",
-            "sl-podium",
-            "sl-shoutout",
-            "sl-battle",
-            "sl-quiz",
-            "sl3",
-            "sl4",
-          ].forEach((sid) => {
+          ["sl-bn","sl-podium","sl-shoutout","sl-battle","sl-quiz","sl3","sl4"].forEach((sid) => {
             const el = document.getElementById(sid);
             if (!el) return;
             if (sid === id) {
               el.classList.remove("exit");
               el.classList.add("active");
+              // When honor-mentions slide becomes active (not via renderTip),
+              // restore honor list visibility
+              if (sid === "sl3") {
+                const tipWrap   = document.getElementById("tipWrap");
+                const honorWrap = document.getElementById("honorListWrap");
+                if (tipWrap   && tipWrap.style.display   === "flex") { /* leave tip showing */ }
+              }
             } else if (el.classList.contains("active")) {
               el.classList.remove("active");
               el.classList.add("exit");
+              // When sl3 exits, reset it back to honor list for next time
+              if (sid === "sl3") {
+                const tipWrap   = document.getElementById("tipWrap");
+                const honorWrap = document.getElementById("honorListWrap");
+                if (tipWrap)   tipWrap.style.display   = "none";
+                if (honorWrap) honorWrap.style.display  = "flex";
+              }
               setTimeout(() => el.classList.remove("exit"), 500);
             }
           });
@@ -690,20 +495,16 @@
           }, step.ms);
         };
 
-        // ── Tab / Navigation ─────────────────────────────────────────────────
+        // ── Tab / Navigation ─────────────────────────────────────────────
         window.switchTab = function (id) {
-          document
-            .querySelectorAll(".screen")
-            .forEach((s) => s.classList.remove("active"));
-          document
-            .querySelectorAll(".nb")
-            .forEach((b) => b.classList.remove("active"));
+          document.querySelectorAll(".screen").forEach((s) => s.classList.remove("active"));
+          document.querySelectorAll(".nb").forEach((b) => b.classList.remove("active"));
           const screen = document.getElementById(id);
           if (screen) screen.classList.add("active");
           const nav = document.getElementById("nav-" + id);
           if (nav) nav.classList.add("active");
           if (id === "stats") _animateStats();
-          if (id === "home") _animateHome();
+          if (id === "home")  _animateHome();
           if (id === "learn") {
             if (window.buildSubjectStudyGrid) buildSubjectStudyGrid();
           }
@@ -728,9 +529,9 @@
           const g = document.getElementById("hmG");
           if (!g || g.children.length > 0) return;
           [
-            0, 0, 1, 2, 3, 4, 2, 1, 0, 1, 3, 4, 2, 1, 0, 0, 2, 3, 4, 3, 2, 1, 0,
-            1, 2, 3, 4, 3, 2, 1, 0, 2, 3, 4, 3, 2, 1, 2, 3, 4, 4, 3, 2, 1, 0, 1,
-            2, 3, 4, 3, 2, 1, 2, 3, 4, 3,
+            0,0,1,2,3,4,2,1,0,1,3,4,2,1,0,0,2,3,4,3,2,1,0,
+            1,2,3,4,3,2,1,0,2,3,4,3,2,1,2,3,4,4,3,2,1,0,1,
+            2,3,4,3,2,1,2,3,4,3,
           ].forEach((v) => {
             const c = document.createElement("div");
             c.className = "hmc" + (v > 0 ? " h" + v : "");
@@ -738,29 +539,25 @@
           });
         }
 
-        // ── Theme picker ──────────────────────────────────────────────────────
+        // ── Theme picker ──────────────────────────────────────────────────
         window.pickTheme = function (name, card) {
           document.body.setAttribute("data-theme", name);
-          document
-            .querySelectorAll(".thc")
-            .forEach((c) => c.classList.remove("active"));
+          document.querySelectorAll(".thc").forEach((c) => c.classList.remove("active"));
           if (card) card.classList.add("active");
         };
 
-        // ── Price toggle ──────────────────────────────────────────────────────
+        // ── Price toggle ──────────────────────────────────────────────────
         window.setPrice = function (period, btn) {
-          document
-            .querySelectorAll(".ptb")
-            .forEach((b) => b.classList.remove("active"));
+          document.querySelectorAll(".ptb").forEach((b) => b.classList.remove("active"));
           btn.classList.add("active");
-          const amt = document.getElementById("pAmt");
+          const amt   = document.getElementById("pAmt");
           const cross = document.getElementById("pCross");
           if (period === "monthly") {
-            if (amt) amt.innerHTML = "₹99<span>/mo</span>";
-            if (cross) cross.textContent = "₹149";
+            if (amt)   amt.innerHTML      = "₹99<span>/mo</span>";
+            if (cross) cross.textContent  = "₹149";
           } else {
-            if (amt) amt.innerHTML = "₹499<span>/yr</span>";
-            if (cross) cross.textContent = "₹999";
+            if (amt)   amt.innerHTML      = "₹499<span>/yr</span>";
+            if (cross) cross.textContent  = "₹999";
           }
         };
 
@@ -768,7 +565,7 @@
           toast("🛒 Opening checkout for " + plan + " at " + price);
         };
 
-        // ── Toast & Confetti helpers ──────────────────────────────────────────
+        // ── Toast & Confetti ──────────────────────────────────────────────
         window.toast = function (msg) {
           const t = document.getElementById("xpToast");
           if (!t) return;
@@ -783,45 +580,37 @@
           for (let i = 0; i < 30; i++) {
             const c = document.createElement("div");
             c.className = "conf-p";
-            c.style.cssText = `left:${Math.random() * 100}%;top:${Math.random() * 40 + 10}%;background:hsl(${Math.random() * 360},80%,60%);animation-duration:${0.8 + Math.random() * 0.8}s;animation-delay:${Math.random() * 0.3}s`;
+            c.style.cssText = `left:${Math.random()*100}%;top:${Math.random()*40+10}%;background:hsl(${Math.random()*360},80%,60%);animation-duration:${0.8+Math.random()*0.8}s;animation-delay:${Math.random()*0.3}s`;
             cw.appendChild(c);
             setTimeout(() => c.remove(), 1800);
           }
         };
 
-        // ── Live clock ────────────────────────────────────────────────────────
+        // ── Live clock ────────────────────────────────────────────────────
         setInterval(() => {
           const el = document.getElementById("tvClock");
           if (!el) return;
           const n = new Date();
           el.textContent =
-            String(n.getHours()).padStart(2, "0") +
-            ":" +
-            String(n.getMinutes()).padStart(2, "0") +
-            ":" +
+            String(n.getHours()).padStart(2, "0") + ":" +
+            String(n.getMinutes()).padStart(2, "0") + ":" +
             String(n.getSeconds()).padStart(2, "0");
         }, 1000);
 
-        // ── Kick off! ─────────────────────────────────────────────────────────
+        // ── Kick off ──────────────────────────────────────────────────────
         _animateHome();
         _buildHM();
-        buildSubjectStudyGrid(); // from subject-engine.js — safe even if grid not visible yet
-
-        // Switch to home and start TV loop
+        if (window.buildSubjectStudyGrid) buildSubjectStudyGrid();
         switchTab("home");
         runStep();
       }
 
-      // ── Viewport Height Fix ────────────────────────────────────────────────────
+      // ── Viewport Height Fix ───────────────────────────────────────────────
       function fixHeight() {
-        const h = window.visualViewport
-          ? window.visualViewport.height
-          : window.innerHeight;
-        const w = window.visualViewport
-          ? window.visualViewport.width
-          : window.innerWidth;
+        const h = window.visualViewport ? window.visualViewport.height : window.innerHeight;
+        const w = window.visualViewport ? window.visualViewport.width  : window.innerWidth;
         document.documentElement.style.setProperty("--app-h", h + "px");
-        document.documentElement.style.setProperty("--vph", h + "px");
+        document.documentElement.style.setProperty("--vph",   h + "px");
         const phone = document.getElementById("app");
         if (!phone) return;
         if (w <= 480) {
@@ -832,15 +621,12 @@
       }
       fixHeight();
       window.addEventListener("resize", fixHeight);
-      window.addEventListener("orientationchange", () =>
-        setTimeout(fixHeight, 150),
-      );
+      window.addEventListener("orientationchange", () => setTimeout(fixHeight, 150));
       if (window.visualViewport) {
         window.visualViewport.addEventListener("resize", fixHeight);
         window.visualViewport.addEventListener("scroll", fixHeight);
       }
 
-      // Start everything on load
       window.addEventListener("load", loadComponents);
     </script>
   </body>
