@@ -10,6 +10,7 @@
   --acc: #d4a843;
   --acc2: #eec15c;
   --acc3: #f5d68d;
+  --acc4: #ff6b6b;
   --gold: #ffcc00;
   --cyan: #00d4ff;
   --side-pad: 14px;
@@ -18,7 +19,7 @@
   --nav-h: 76px;
   --sh-gold: 0 8px 32px rgba(212, 168, 67, 0.15);
 
-  /* TV Variables — Default (Moss-ish/Dark) */
+  /* TV Variables — Default */
   --tv-cabinet: #1a1a18;
   --tv-cabinet2: #121210;
   --tv-cabinet3: #0a0a09;
@@ -37,6 +38,10 @@
   --nav: rgba(10, 10, 12, 0.9);
 }
 
+/* ════════════════════════════════════════
+   EXISTING THEMES
+   ════════════════════════════════════════ */
+
 body[data-theme="aurora"] {
   --bg: #040d12;
   --card: rgba(15, 35, 45, 0.4);
@@ -44,6 +49,7 @@ body[data-theme="aurora"] {
   --acc: #48cae4;
   --acc2: #90e0ef;
   --acc3: #ade8f4;
+  --acc4: #ff6b6b;
   --b: rgba(72, 202, 228, 0.1);
   --b2: rgba(72, 202, 228, 0.2);
   --nav: rgba(2, 13, 16, 0.94);
@@ -65,16 +71,8 @@ body[data-theme="aurora"] {
   --tv-bar-bg2: rgba(0, 20, 25, 0.55);
 
   background:
-    radial-gradient(
-      ellipse 60% 40% at 80% 10%,
-      rgba(72, 202, 228, 0.12),
-      transparent
-    ),
-    radial-gradient(
-      circle at 10% 90%,
-      rgba(0, 180, 216, 0.08),
-      transparent 50%
-    ),
+    radial-gradient(ellipse 60% 40% at 80% 10%, rgba(72, 202, 228, 0.12), transparent),
+    radial-gradient(circle at 10% 90%, rgba(0, 180, 216, 0.08), transparent 50%),
     var(--bg);
 }
 
@@ -85,6 +83,7 @@ body[data-theme="moss"] {
   --acc: #7ecb5f;
   --acc2: #a3e635;
   --acc3: #ccf381;
+  --acc4: #ff6b6b;
   --b: rgba(126, 203, 95, 0.12);
   --b2: rgba(126, 203, 95, 0.22);
   --nav: rgba(8, 15, 8, 0.94);
@@ -106,16 +105,8 @@ body[data-theme="moss"] {
   --tv-bar-bg2: rgba(15, 25, 15, 0.55);
 
   background:
-    radial-gradient(
-      ellipse 70% 50% at 20% 20%,
-      rgba(126, 203, 95, 0.13),
-      transparent 55%
-    ),
-    radial-gradient(
-      ellipse 50% 40% at 80% 80%,
-      rgba(61, 158, 110, 0.09),
-      transparent 55%
-    ),
+    radial-gradient(ellipse 70% 50% at 20% 20%, rgba(126, 203, 95, 0.13), transparent 55%),
+    radial-gradient(ellipse 50% 40% at 80% 80%, rgba(61, 158, 110, 0.09), transparent 55%),
     var(--bg);
 }
 
@@ -126,6 +117,7 @@ body[data-theme="ember"] {
   --acc: #ff7c1a;
   --acc2: #ff9e4d;
   --acc3: #ffbd80;
+  --acc4: #ff4444;
   --b: rgba(255, 124, 26, 0.1);
   --b2: rgba(255, 124, 26, 0.2);
   --nav: rgba(18, 10, 5, 0.94);
@@ -148,11 +140,7 @@ body[data-theme="ember"] {
 
   background:
     radial-gradient(circle at 20% 20%, rgba(255, 124, 26, 0.1), transparent),
-    radial-gradient(
-      ellipse 50% 50% at 80% 80%,
-      rgba(255, 60, 0, 0.08),
-      transparent
-    ),
+    radial-gradient(ellipse 50% 50% at 80% 80%, rgba(255, 60, 0, 0.08), transparent),
     var(--bg);
 }
 
@@ -163,6 +151,7 @@ body[data-theme="ice"] {
   --acc: #0090e0;
   --acc2: #33aaff;
   --acc3: #77ccff;
+  --acc4: #ff6b6b;
   --b: rgba(0, 144, 224, 0.1);
   --b2: rgba(0, 144, 224, 0.22);
   --nav: rgba(6, 6, 15, 0.92);
@@ -185,13 +174,231 @@ body[data-theme="ice"] {
 
   background:
     radial-gradient(circle at 20% 20%, rgba(0, 144, 224, 0.1), transparent),
-    radial-gradient(
-      ellipse 60% 50% at 80% 80%,
-      rgba(51, 170, 255, 0.08),
-      transparent
-    ),
+    radial-gradient(ellipse 60% 50% at 80% 80%, rgba(51, 170, 255, 0.08), transparent),
     var(--bg);
 }
+
+/* ════════════════════════════════════════
+   NEW PREMIUM THEMES
+   ════════════════════════════════════════ */
+
+/* ── ROYAL · Deep violet / amethyst ── */
+body[data-theme="royal"] {
+  --bg: #07040f;
+  --card: rgba(30, 15, 55, 0.45);
+  --card2: rgba(45, 20, 75, 0.45);
+  --acc: #b06bff;
+  --acc2: #d09eff;
+  --acc3: #e8c9ff;
+  --acc4: #ff6b9d;
+  --b: rgba(176, 107, 255, 0.12);
+  --b2: rgba(176, 107, 255, 0.24);
+  --nav: rgba(7, 3, 16, 0.95);
+
+  --tv-cabinet: #120820;
+  --tv-cabinet2: #0d0518;
+  --tv-cabinet3: #080310;
+  --tv-screen-bg: #060210;
+  --tv-screen-border: #0f0520;
+  --tv-hud: #b06bff;
+  --tv-hud-dim: #4a2080;
+  --tv-hud-glow: rgba(176, 107, 255, 0.09);
+  --tv-hud-border: rgba(176, 107, 255, 0.15);
+  --tv-ticker-bg: rgba(5, 2, 12, 0.6);
+  --tv-ticker-border: rgba(176, 107, 255, 0.1);
+  --tv-ticker-txt: #7a40c0;
+  --tv-sig: rgba(176, 107, 255, 0.45);
+  --tv-bar-bg: rgba(8, 3, 18, 0.85);
+  --tv-bar-bg2: rgba(20, 8, 40, 0.6);
+
+  background:
+    radial-gradient(ellipse 65% 45% at 15% 15%, rgba(176, 107, 255, 0.14), transparent 55%),
+    radial-gradient(ellipse 55% 45% at 85% 85%, rgba(120, 40, 200, 0.1), transparent 55%),
+    radial-gradient(circle at 50% 50%, rgba(80, 0, 160, 0.06), transparent 60%),
+    var(--bg);
+}
+
+/* ── CRIMSON · Blood red / rose ── */
+body[data-theme="crimson"] {
+  --bg: #0f0407;
+  --card: rgba(50, 10, 20, 0.45);
+  --card2: rgba(65, 15, 28, 0.45);
+  --acc: #ff3366;
+  --acc2: #ff6688;
+  --acc3: #ffaabb;
+  --acc4: #ffaa33;
+  --b: rgba(255, 51, 102, 0.12);
+  --b2: rgba(255, 51, 102, 0.24);
+  --nav: rgba(14, 3, 7, 0.95);
+
+  --tv-cabinet: #200810;
+  --tv-cabinet2: #160508;
+  --tv-cabinet3: #0f0305;
+  --tv-screen-bg: #0d0306;
+  --tv-screen-border: #1a0510;
+  --tv-hud: #ff3366;
+  --tv-hud-dim: #7a1530;
+  --tv-hud-glow: rgba(255, 51, 102, 0.09);
+  --tv-hud-border: rgba(255, 51, 102, 0.15);
+  --tv-ticker-bg: rgba(10, 2, 5, 0.6);
+  --tv-ticker-border: rgba(255, 51, 102, 0.1);
+  --tv-ticker-txt: #cc2244;
+  --tv-sig: rgba(255, 51, 102, 0.45);
+  --tv-bar-bg: rgba(12, 3, 6, 0.85);
+  --tv-bar-bg2: rgba(30, 8, 15, 0.6);
+
+  background:
+    radial-gradient(ellipse 60% 40% at 10% 10%, rgba(255, 51, 102, 0.13), transparent 55%),
+    radial-gradient(ellipse 50% 50% at 90% 80%, rgba(180, 20, 60, 0.1), transparent 55%),
+    radial-gradient(circle at 50% 40%, rgba(120, 0, 40, 0.07), transparent 50%),
+    var(--bg);
+}
+
+/* ── VOID · Pure black with electric cyan ── */
+body[data-theme="void"] {
+  --bg: #000000;
+  --card: rgba(8, 8, 12, 0.7);
+  --card2: rgba(12, 12, 18, 0.7);
+  --acc: #00fff5;
+  --acc2: #40fffa;
+  --acc3: #80fff8;
+  --acc4: #ff00aa;
+  --b: rgba(0, 255, 245, 0.08);
+  --b2: rgba(0, 255, 245, 0.18);
+  --nav: rgba(0, 0, 0, 0.97);
+
+  --tv-cabinet: #050505;
+  --tv-cabinet2: #030303;
+  --tv-cabinet3: #010101;
+  --tv-screen-bg: #020202;
+  --tv-screen-border: #080808;
+  --tv-hud: #00fff5;
+  --tv-hud-dim: #006660;
+  --tv-hud-glow: rgba(0, 255, 245, 0.1);
+  --tv-hud-border: rgba(0, 255, 245, 0.14);
+  --tv-ticker-bg: rgba(0, 0, 0, 0.8);
+  --tv-ticker-border: rgba(0, 255, 245, 0.08);
+  --tv-ticker-txt: #00b8b0;
+  --tv-sig: rgba(0, 255, 245, 0.5);
+  --tv-bar-bg: rgba(0, 0, 0, 0.9);
+  --tv-bar-bg2: rgba(0, 10, 10, 0.7);
+
+  background:
+    radial-gradient(ellipse 40% 30% at 20% 20%, rgba(0, 255, 245, 0.07), transparent 55%),
+    radial-gradient(ellipse 35% 30% at 80% 80%, rgba(255, 0, 170, 0.06), transparent 55%),
+    #000000;
+}
+
+/* ── SAKURA · Cherry blossom pink ── */
+body[data-theme="sakura"] {
+  --bg: #0f0709;
+  --card: rgba(50, 18, 28, 0.45);
+  --card2: rgba(65, 25, 38, 0.45);
+  --acc: #ff85a1;
+  --acc2: #ffaabc;
+  --acc3: #ffd0da;
+  --acc4: #ffd166;
+  --b: rgba(255, 133, 161, 0.12);
+  --b2: rgba(255, 133, 161, 0.24);
+  --nav: rgba(14, 5, 8, 0.95);
+
+  --tv-cabinet: #1e0d12;
+  --tv-cabinet2: #16090d;
+  --tv-cabinet3: #0f0608;
+  --tv-screen-bg: #0c040a;
+  --tv-screen-border: #1a0b10;
+  --tv-hud: #ff85a1;
+  --tv-hud-dim: #803348;
+  --tv-hud-glow: rgba(255, 133, 161, 0.09);
+  --tv-hud-border: rgba(255, 133, 161, 0.14);
+  --tv-ticker-bg: rgba(10, 3, 5, 0.6);
+  --tv-ticker-border: rgba(255, 133, 161, 0.09);
+  --tv-ticker-txt: #cc5577;
+  --tv-sig: rgba(255, 133, 161, 0.45);
+  --tv-bar-bg: rgba(12, 3, 7, 0.85);
+  --tv-bar-bg2: rgba(28, 8, 16, 0.6);
+
+  background:
+    radial-gradient(ellipse 65% 45% at 20% 10%, rgba(255, 133, 161, 0.13), transparent 55%),
+    radial-gradient(ellipse 50% 45% at 80% 85%, rgba(200, 80, 120, 0.09), transparent 55%),
+    radial-gradient(circle at 55% 50%, rgba(255, 180, 200, 0.04), transparent 50%),
+    var(--bg);
+}
+
+/* ── OBSIDIAN · Near-black with silver chrome ── */
+body[data-theme="obsidian"] {
+  --bg: #080808;
+  --card: rgba(20, 20, 22, 0.55);
+  --card2: rgba(28, 28, 32, 0.55);
+  --acc: #c0c8d8;
+  --acc2: #d8e0ee;
+  --acc3: #eef2f8;
+  --acc4: #7eb8f7;
+  --b: rgba(192, 200, 216, 0.1);
+  --b2: rgba(192, 200, 216, 0.2);
+  --nav: rgba(5, 5, 6, 0.97);
+
+  --tv-cabinet: #101012;
+  --tv-cabinet2: #0a0a0c;
+  --tv-cabinet3: #060608;
+  --tv-screen-bg: #060608;
+  --tv-screen-border: #101014;
+  --tv-hud: #c0c8d8;
+  --tv-hud-dim: #505860;
+  --tv-hud-glow: rgba(192, 200, 216, 0.07);
+  --tv-hud-border: rgba(192, 200, 216, 0.12);
+  --tv-ticker-bg: rgba(4, 4, 5, 0.7);
+  --tv-ticker-border: rgba(192, 200, 216, 0.08);
+  --tv-ticker-txt: #8890a0;
+  --tv-sig: rgba(192, 200, 216, 0.4);
+  --tv-bar-bg: rgba(5, 5, 7, 0.88);
+  --tv-bar-bg2: rgba(14, 14, 18, 0.65);
+
+  background:
+    radial-gradient(ellipse 55% 35% at 15% 15%, rgba(192, 200, 216, 0.07), transparent 55%),
+    radial-gradient(ellipse 45% 35% at 85% 85%, rgba(120, 140, 180, 0.05), transparent 55%),
+    #080808;
+}
+
+/* ── NEON · Cyberpunk lime / magenta ── */
+body[data-theme="neon"] {
+  --bg: #030a03;
+  --card: rgba(5, 22, 5, 0.55);
+  --card2: rgba(8, 30, 8, 0.55);
+  --acc: #39ff14;
+  --acc2: #7fff3a;
+  --acc3: #b8ff80;
+  --acc4: #ff14dc;
+  --b: rgba(57, 255, 20, 0.1);
+  --b2: rgba(57, 255, 20, 0.22);
+  --nav: rgba(2, 7, 2, 0.97);
+
+  --tv-cabinet: #060e06;
+  --tv-cabinet2: #040a04;
+  --tv-cabinet3: #020602;
+  --tv-screen-bg: #030803;
+  --tv-screen-border: #070e07;
+  --tv-hud: #39ff14;
+  --tv-hud-dim: #1a7008;
+  --tv-hud-glow: rgba(57, 255, 20, 0.1);
+  --tv-hud-border: rgba(57, 255, 20, 0.14);
+  --tv-ticker-bg: rgba(1, 5, 1, 0.7);
+  --tv-ticker-border: rgba(57, 255, 20, 0.09);
+  --tv-ticker-txt: #28bb0f;
+  --tv-sig: rgba(57, 255, 20, 0.5);
+  --tv-bar-bg: rgba(2, 6, 2, 0.88);
+  --tv-bar-bg2: rgba(5, 15, 5, 0.65);
+
+  background:
+    radial-gradient(ellipse 55% 40% at 15% 15%, rgba(57, 255, 20, 0.1), transparent 55%),
+    radial-gradient(ellipse 45% 40% at 85% 80%, rgba(255, 20, 220, 0.07), transparent 55%),
+    radial-gradient(circle at 50% 50%, rgba(20, 80, 10, 0.05), transparent 50%),
+    var(--bg);
+}
+
+/* ════════════════════════════════════════
+   BASE RESET & LAYOUT
+   ════════════════════════════════════════ */
 
 * {
   margin: 0;
@@ -245,15 +452,8 @@ body {
   pointer-events: none;
   transition: all 1s ease;
 }
-.b1 {
-  top: -100px;
-  left: -50px;
-}
-.b2 {
-  bottom: -50px;
-  right: -80px;
-  width: 400px;
-}
+.b1 { top: -100px; left: -50px; }
+.b2 { bottom: -50px; right: -80px; width: 400px; }
 
 /* Island */
 .island {
@@ -272,18 +472,8 @@ body {
   padding: 0 12px;
   gap: 8px;
 }
-.isl-dot {
-  width: 5px;
-  height: 5px;
-  background: #111;
-  border-radius: 50%;
-}
-.isl-cam {
-  width: 10px;
-  height: 10px;
-  background: #111;
-  border-radius: 50%;
-}
+.isl-dot { width: 5px; height: 5px; background: #111; border-radius: 50%; }
+.isl-cam { width: 10px; height: 10px; background: #111; border-radius: 50%; }
 
 /* Status Bar */
 .sbar {
@@ -330,20 +520,10 @@ body {
   cursor: pointer;
   transition: all 0.2s;
 }
-.nb-i {
-  font-size: 19px;
-  transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
-.nb-l {
-  font-size: 9.5px;
-  font-weight: 700;
-}
-.nb.active {
-  color: var(--acc);
-}
-.nb.active .nb-i {
-  transform: translateY(-4px);
-}
+.nb-i { font-size: 19px; transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+.nb-l { font-size: 9.5px; font-weight: 700; }
+.nb.active { color: var(--acc); }
+.nb.active .nb-i { transform: translateY(-4px); }
 
 /* Shared Screens */
 .screen {
@@ -361,9 +541,7 @@ body {
   display: block;
   animation: fadeIn 0.4s ease-out;
 }
-.screen::-webkit-scrollbar {
-  display: none;
-}
+.screen::-webkit-scrollbar { display: none; }
 
 /* Shared Glassmorphism */
 .glass {
@@ -375,14 +553,8 @@ body {
 }
 
 @keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(8px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
 /* Toast */
@@ -422,17 +594,14 @@ body {
   pointer-events: none;
   z-index: 2000;
 }
-.cdot {
+.conf-p {
   position: absolute;
-  opacity: 1;
+  width: 6px;
+  height: 6px;
+  border-radius: 2px;
+  animation: cFall 1.4s ease-in forwards;
 }
 @keyframes cFall {
-  0% {
-    transform: translateY(-20px) rotate(0deg);
-    opacity: 1;
-  }
-  100% {
-    transform: translateY(400px) rotate(360deg);
-    opacity: 0;
-  }
+  0%   { transform: translateY(-20px) rotate(0deg); opacity: 1; }
+  100% { transform: translateY(400px) rotate(360deg); opacity: 0; }
 }

@@ -152,9 +152,14 @@
   position: relative;
 }
 
-.thc.sel {
+.thc.active {
   border-color: var(--acc);
-  box-shadow: 0 0 20px var(--tv-hud-glow);
+  border-width: 2px;
+  box-shadow:
+    0 0 0 3px rgba(255, 255, 255, 0.08),
+    0 0 18px var(--acc),
+    inset 0 0 12px rgba(255, 255, 255, 0.04);
+  transform: scale(1.03);
 }
 .th-lkbdg {
   position: absolute;

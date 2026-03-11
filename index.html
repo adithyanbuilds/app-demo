@@ -542,6 +542,7 @@
         // ── Theme picker ──────────────────────────────────────────────────
         window.pickTheme = function (name, card) {
           document.body.setAttribute("data-theme", name);
+          localStorage.setItem("upsc_theme", name);
           document.querySelectorAll(".thc").forEach((c) => c.classList.remove("active"));
           if (card) card.classList.add("active");
         };
@@ -598,6 +599,16 @@
         }, 1000);
 
         // ── Kick off ──────────────────────────────────────────────────────
+        // Restore last picked theme
+        const savedTheme = localStorage.getItem("upsc_theme");
+        if (savedTheme) {
+          document.body.setAttribute("data-theme", savedTheme);
+          const savedCard = document.getElementById("th-" + savedTheme);
+          if (savedCard) {
+            document.querySelectorAll(".thc").forEach((c) => c.classList.remove("active"));
+            savedCard.classList.add("active");
+          }
+        }
         _animateHome();
         _buildHM();
         if (window.buildSubjectStudyGrid) buildSubjectStudyGrid();
