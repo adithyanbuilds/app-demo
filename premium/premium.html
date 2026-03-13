@@ -4,21 +4,14 @@
       <div class="prem-hero-badge">
         <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
           <circle cx="20" cy="20" r="20" fill="url(#hpg1)" />
-          <polygon
-            points="20,9 23.5,17 33,17 25.5,22.5 28,31 20,26 12,31 14.5,22.5 7,17 16.5,17"
-            fill="url(#hpg2)"
-            stroke="rgba(255,255,255,0.25)"
-            stroke-width="0.6"
-          />
+          <polygon points="20,9 23.5,17 33,17 25.5,22.5 28,31 20,26 12,31 14.5,22.5 7,17 16.5,17"
+            fill="url(#hpg2)" stroke="rgba(255,255,255,0.25)" stroke-width="0.6" />
           <defs>
             <linearGradient id="hpg1" x1="0" y1="0" x2="40" y2="40">
-              <stop offset="0%" stop-color="#6e3fff" />
-              <stop offset="100%" stop-color="#b44fff" />
+              <stop offset="0%" stop-color="#6e3fff" /><stop offset="100%" stop-color="#b44fff" />
             </linearGradient>
             <linearGradient id="hpg2" x1="7" y1="9" x2="33" y2="31">
-              <stop offset="0%" stop-color="#ffe566" />
-              <stop offset="50%" stop-color="#ff9500" />
-              <stop offset="100%" stop-color="#ffd700" />
+              <stop offset="0%" stop-color="#ffe566" /><stop offset="50%" stop-color="#ff9500" /><stop offset="100%" stop-color="#ffd700" />
             </linearGradient>
           </defs>
         </svg>
@@ -31,135 +24,93 @@
       <div class="prem-hero-pill">PRO</div>
     </div>
     <div class="prem-stat-row">
-      <div class="prem-stat-item">
-        <div class="prem-stat-val">50K+</div>
-        <div class="prem-stat-lbl">Learners</div>
-      </div>
+      <div class="prem-stat-item"><div class="prem-stat-val">50K+</div><div class="prem-stat-lbl">Learners</div></div>
       <div class="prem-stat-div"></div>
-      <div class="prem-stat-item">
-        <div class="prem-stat-val">4.9★</div>
-        <div class="prem-stat-lbl">Rating</div>
-      </div>
+      <div class="prem-stat-item"><div class="prem-stat-val">4.9★</div><div class="prem-stat-lbl">Rating</div></div>
       <div class="prem-stat-div"></div>
-      <div class="prem-stat-item">
-        <div class="prem-stat-val">310</div>
-        <div class="prem-stat-lbl">Days Left</div>
-      </div>
+      <div class="prem-stat-item"><div class="prem-stat-val">310</div><div class="prem-stat-lbl">Days Left</div></div>
     </div>
   </div>
 
   <div class="feat-list">
-    <div class="feat">
-      <div class="feat-ic fic6">🎨</div>
-      <div class="feat-info">
-        <h4>10 Premium Themes</h4>
-        <p>Aurora · Ember · Ice · Royal · Crimson · Void & more.</p>
-      </div>
+    <div class="feat" onclick="showBearPopup('themes')">
+      <div class="feat-ic" style="background:rgba(110,63,255,0.15)">🎨</div>
+      <div class="feat-info"><h4>10 Premium Themes</h4><p>Aurora · Ember · Ice · Royal · Crimson · Void &amp; more.</p></div>
       <div class="feat-lk">🔒</div>
     </div>
-    <div class="feat">
+    <div class="feat" onclick="showBearPopup('adfree')">
       <div class="feat-ic" style="background:rgba(74,222,128,0.15)">🚫</div>
-      <div class="feat-info">
-        <h4>Ad-Free App</h4>
-        <p>Zero ads anywhere — pure, distraction-free studying.</p>
-      </div>
+      <div class="feat-info"><h4>Ad-Free App</h4><p>Zero ads anywhere — pure, distraction-free studying.</p></div>
       <div class="feat-lk">🔒</div>
     </div>
-    <div class="feat">
+    <div class="feat" onclick="showBearPopup('affairs')">
       <div class="feat-ic" style="background:rgba(34,211,238,0.15)">📰</div>
-      <div class="feat-info">
-        <h4>Daily Current Affairs</h4>
-        <p>Daily curated digest with no interruptions.</p>
-      </div>
+      <div class="feat-info"><h4>Daily Current Affairs</h4><p>Daily curated digest with no interruptions.</p></div>
       <div class="feat-lk">🔒</div>
     </div>
-    <div class="feat">
+    <div class="feat" onclick="showBearPopup('quiz')">
       <div class="feat-ic" style="background:rgba(245,200,66,0.15)">⚡</div>
-      <div class="feat-info">
-        <h4>Pro Quizzes</h4>
-        <p>Exclusive weekly battles, survival mode & bonus XP events.</p>
-      </div>
+      <div class="feat-info"><h4>Pro Quizzes</h4><p>Exclusive weekly battles, survival mode &amp; bonus XP events.</p></div>
       <div class="feat-lk">🔒</div>
     </div>
   </div>
 
   <div class="th-section">
     <div class="th-lbl">👑 Premium Themes — Live Preview</div>
-
-    <!-- ROW 1: original 4 -->
     <div class="th-grid">
-      <div class="thc thc-aurora" id="th-aurora" onclick="pickTheme('aurora', this)">
+      <div class="thc thc-aurora" id="th-aurora" onclick="pickTheme('aurora',this)">
         <div class="th-lkbdg">🔒</div>
         <div class="th-prev" style="background:linear-gradient(135deg,#040d12,#48cae4 200%)"></div>
-        <h4>Aurora</h4>
-        <p>Teal midnight</p>
+        <h4>Aurora</h4><p>Teal midnight</p>
       </div>
-      <div class="thc thc-ember" id="th-ember" onclick="pickTheme('ember', this)">
+      <div class="thc thc-ember" id="th-ember" onclick="pickTheme('ember',this)">
         <div class="th-lkbdg">🔒</div>
         <div class="th-prev" style="background:linear-gradient(135deg,#110804,#ff7c1a 200%)"></div>
-        <h4>Ember</h4>
-        <p>Fire &amp; dark</p>
+        <h4>Ember</h4><p>Fire &amp; dark</p>
       </div>
-      <div class="thc thc-ice" id="th-ice" onclick="pickTheme('ice', this)">
+      <div class="thc thc-ice" id="th-ice" onclick="pickTheme('ice',this)">
         <div class="th-lkbdg">🔒</div>
         <div class="th-prev" style="background:linear-gradient(135deg,#050a0f,#0090e0 200%)"></div>
-        <h4>Ice</h4>
-        <p>Light &amp; crisp</p>
+        <h4>Ice</h4><p>Light &amp; crisp</p>
       </div>
-      <div class="thc thc-moss" id="th-moss" onclick="pickTheme('moss', this)">
+      <div class="thc thc-moss" id="th-moss" onclick="pickTheme('moss',this)">
         <div class="th-lkbdg">🔒</div>
         <div class="th-prev" style="background:linear-gradient(135deg,#0a0f0a,#7ecb5f 200%)"></div>
-        <h4>Moss</h4>
-        <p>Forest &amp; organic</p>
+        <h4>Moss</h4><p>Forest &amp; organic</p>
       </div>
     </div>
-
-    <!-- ROW 2: new 6 -->
     <div class="th-grid" style="margin-top:8px">
-      <div class="thc" id="th-royal" onclick="pickTheme('royal', this)"
-        style="background:linear-gradient(145deg,rgba(30,15,55,0.8),rgba(7,4,15,0.95));border-color:rgba(176,107,255,0.3);">
+      <div class="thc" id="th-royal" onclick="pickTheme('royal',this)" style="background:linear-gradient(145deg,rgba(30,15,55,0.8),rgba(7,4,15,0.95));border-color:rgba(176,107,255,0.3);">
         <div class="th-lkbdg">🔒</div>
         <div class="th-prev" style="background:linear-gradient(135deg,#07040f,#b06bff 200%)"></div>
-        <h4 style="color:#d09eff">Royal</h4>
-        <p>Deep amethyst</p>
+        <h4 style="color:#d09eff">Royal</h4><p>Deep amethyst</p>
       </div>
-      <div class="thc" id="th-crimson" onclick="pickTheme('crimson', this)"
-        style="background:linear-gradient(145deg,rgba(50,10,20,0.8),rgba(15,4,7,0.95));border-color:rgba(255,51,102,0.3);">
+      <div class="thc" id="th-crimson" onclick="pickTheme('crimson',this)" style="background:linear-gradient(145deg,rgba(50,10,20,0.8),rgba(15,4,7,0.95));border-color:rgba(255,51,102,0.3);">
         <div class="th-lkbdg">🔒</div>
         <div class="th-prev" style="background:linear-gradient(135deg,#0f0407,#ff3366 200%)"></div>
-        <h4 style="color:#ff6688">Crimson</h4>
-        <p>Blood &amp; rose</p>
+        <h4 style="color:#ff6688">Crimson</h4><p>Blood &amp; rose</p>
       </div>
-      <div class="thc" id="th-void" onclick="pickTheme('void', this)"
-        style="background:linear-gradient(145deg,rgba(8,8,12,0.9),rgba(0,0,0,0.98));border-color:rgba(0,255,245,0.25);">
+      <div class="thc" id="th-void" onclick="pickTheme('void',this)" style="background:linear-gradient(145deg,rgba(8,8,12,0.9),rgba(0,0,0,0.98));border-color:rgba(0,255,245,0.25);">
         <div class="th-lkbdg">🔒</div>
         <div class="th-prev" style="background:linear-gradient(135deg,#000,#00fff5 220%)"></div>
-        <h4 style="color:#40fffa">Void</h4>
-        <p>Pure black &amp; cyan</p>
+        <h4 style="color:#40fffa">Void</h4><p>Pure black &amp; cyan</p>
       </div>
-      <div class="thc" id="th-sakura" onclick="pickTheme('sakura', this)"
-        style="background:linear-gradient(145deg,rgba(50,18,28,0.8),rgba(15,7,9,0.95));border-color:rgba(255,133,161,0.3);">
+      <div class="thc" id="th-sakura" onclick="pickTheme('sakura',this)" style="background:linear-gradient(145deg,rgba(50,18,28,0.8),rgba(15,7,9,0.95));border-color:rgba(255,133,161,0.3);">
         <div class="th-lkbdg">🔒</div>
         <div class="th-prev" style="background:linear-gradient(135deg,#0f0709,#ff85a1 200%)"></div>
-        <h4 style="color:#ffaabc">Sakura</h4>
-        <p>Cherry blossom</p>
+        <h4 style="color:#ffaabc">Sakura</h4><p>Cherry blossom</p>
       </div>
-      <div class="thc" id="th-obsidian" onclick="pickTheme('obsidian', this)"
-        style="background:linear-gradient(145deg,rgba(20,20,22,0.9),rgba(8,8,8,0.98));border-color:rgba(192,200,216,0.2);">
+      <div class="thc" id="th-obsidian" onclick="pickTheme('obsidian',this)" style="background:linear-gradient(145deg,rgba(20,20,22,0.9),rgba(8,8,8,0.98));border-color:rgba(192,200,216,0.2);">
         <div class="th-lkbdg">🔒</div>
         <div class="th-prev" style="background:linear-gradient(135deg,#080808,#c0c8d8 220%)"></div>
-        <h4 style="color:#d8e0ee">Obsidian</h4>
-        <p>Silver chrome</p>
+        <h4 style="color:#d8e0ee">Obsidian</h4><p>Silver chrome</p>
       </div>
-      <div class="thc" id="th-neon" onclick="pickTheme('neon', this)"
-        style="background:linear-gradient(145deg,rgba(5,22,5,0.85),rgba(3,10,3,0.97));border-color:rgba(57,255,20,0.28);">
+      <div class="thc" id="th-neon" onclick="pickTheme('neon',this)" style="background:linear-gradient(145deg,rgba(5,22,5,0.85),rgba(3,10,3,0.97));border-color:rgba(57,255,20,0.28);">
         <div class="th-lkbdg">🔒</div>
         <div class="th-prev" style="background:linear-gradient(135deg,#030a03,#39ff14 200%)"></div>
-        <h4 style="color:#7fff3a">Neon</h4>
-        <p>Acid &amp; cyberpunk</p>
+        <h4 style="color:#7fff3a">Neon</h4><p>Acid &amp; cyberpunk</p>
       </div>
     </div>
-
     <div style="margin-top:8px;text-align:center;font-size:9.5px;color:var(--mut);font-weight:600;">
       Tap to preview · Buy to unlock permanently
     </div>
@@ -167,8 +118,8 @@
 
   <div class="price-section">
     <div class="ptoggle">
-      <button class="ptb" id="ptm" onclick="setPrice('monthly', this)">Monthly</button>
-      <button class="ptb active" id="pty" onclick="setPrice('yearly', this)">
+      <button class="ptb" id="ptm" onclick="setPrice('monthly',this)">Monthly</button>
+      <button class="ptb active" id="pty" onclick="setPrice('yearly',this)">
         Yearly <span style="color:#4ade80;font-size:9px">-60%</span>
       </button>
     </div>
@@ -181,49 +132,34 @@
           <div class="pc-cross" id="pCross">₹999</div>
         </div>
       </div>
-      <div class="pc-desc">
-        All 10 themes, ad-free app &amp; current affairs, and all Pro quizzes — forever.
-      </div>
+      <div class="pc-desc">All 10 themes, ad-free app &amp; current affairs, and all Pro quizzes — forever.</div>
       <div class="pc-chips">
         <div class="pc-chip">✅ 10 Themes</div>
         <div class="pc-chip">✅ Ad-Free</div>
         <div class="pc-chip">✅ Current Affairs</div>
         <div class="pc-chip">✅ Pro Quizzes</div>
       </div>
-      <button class="buy-btn" onclick="doBuy('Pro Annual', '₹499')">
-        👑 Get Pro — ₹499/yr
-      </button>
+      <button class="buy-btn" onclick="doBuy('Pro Annual','₹499')">👑 Get Pro — ₹499/yr</button>
     </div>
     <div class="pcard" style="margin-top:12px">
       <div class="pc-r1">
         <div class="pc-plan">Themes Only</div>
-        <div class="pc-pr">
-          <div class="pc-amt">₹149<span>/yr</span></div>
-        </div>
+        <div class="pc-pr"><div class="pc-amt">₹149<span>/yr</span></div></div>
       </div>
       <div class="pc-desc">All 10 premium themes. Tap any above to preview live.</div>
       <div class="pc-chips">
-        <div class="pc-chip">✅ Aurora</div>
-        <div class="pc-chip">✅ Ember</div>
-        <div class="pc-chip">✅ Ice</div>
-        <div class="pc-chip">✅ Royal</div>
-        <div class="pc-chip">✅ Crimson</div>
-        <div class="pc-chip">✅ Void</div>
-        <div class="pc-chip">✅ Sakura</div>
-        <div class="pc-chip">✅ Obsidian</div>
-        <div class="pc-chip">✅ Neon</div>
-        <div class="pc-chip">✅ Moss</div>
+        <div class="pc-chip">✅ Aurora</div><div class="pc-chip">✅ Ember</div>
+        <div class="pc-chip">✅ Ice</div><div class="pc-chip">✅ Royal</div>
+        <div class="pc-chip">✅ Crimson</div><div class="pc-chip">✅ Void</div>
+        <div class="pc-chip">✅ Sakura</div><div class="pc-chip">✅ Obsidian</div>
+        <div class="pc-chip">✅ Neon</div><div class="pc-chip">✅ Moss</div>
       </div>
-      <button
-        onclick="doBuy('Themes Pack', '₹149')"
-        style="margin-top:11px;width:100%;border:1.5px solid var(--b2);border-radius:13px;padding:13px;font-size:13px;font-weight:800;color:var(--txt);cursor:pointer;background:var(--card);backdrop-filter:blur(16px);font-family:'Plus Jakarta Sans',sans-serif;"
-      >
+      <button onclick="doBuy('Themes Pack','₹149')"
+        style="margin-top:11px;width:100%;border:1.5px solid var(--b2);border-radius:13px;padding:13px;font-size:13px;font-weight:800;color:var(--txt);cursor:pointer;background:var(--card);backdrop-filter:blur(16px);font-family:'Plus Jakarta Sans',sans-serif;">
         🎨 Get Themes — ₹149/yr
       </button>
     </div>
-    <div style="text-align:center;padding:8px 0 4px;font-size:9.5px;color:var(--mut);">
-      🔒 Secure · Cancel anytime
-    </div>
+    <div style="text-align:center;padding:8px 0 4px;font-size:9.5px;color:var(--mut);">🔒 Secure · Cancel anytime</div>
   </div>
   <div style="height:8px"></div>
 </div>

@@ -185,7 +185,7 @@
 .bn-head {
   font-size: 18px; font-weight: 900;
   font-family: "Syne", sans-serif;
-  line-height: 1.2; color: #fff; margin: 0;
+  line-height: 1.2; color: var(--txt); margin: 0;
 }
 .bn-head em { font-style: normal; color: var(--acc); }
 .bn-sub {
@@ -239,12 +239,12 @@
   border-color: rgba(205, 127, 50, 0.28);
 }
 .p-crown { font-size: 13px; filter: drop-shadow(0 0 6px rgba(255,209,102,0.6)); }
-.p-rank-num { position: absolute; top: 4px; right: 5px; font-family: "JetBrains Mono", monospace; font-size: 8px; font-weight: 800; opacity: 0.3; color: #fff; }
+.p-rank-num { position: absolute; top: 4px; right: 5px; font-family: "JetBrains Mono", monospace; font-size: 8px; font-weight: 800; opacity: 0.3; color: var(--txt); }
 .p-avatar { width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; margin-bottom: 1px; }
 .rank-1 .p-avatar { background: radial-gradient(circle at 40% 35%, rgba(255,220,120,0.3), rgba(255,209,102,0.06)); border: 2px solid rgba(255,209,102,0.5); box-shadow: 0 0 10px rgba(255,209,102,0.2); }
 .rank-2 .p-avatar { background: radial-gradient(circle at 40% 35%, rgba(220,220,220,0.2), rgba(200,200,200,0.04)); border: 2px solid rgba(200,200,200,0.35); }
 .rank-3 .p-avatar { background: radial-gradient(circle at 40% 35%, rgba(220,140,60,0.2), rgba(205,127,50,0.04)); border: 2px solid rgba(205,127,50,0.35); }
-.p-name { font-family: "Syne", sans-serif; font-size: 10px; font-weight: 800; color: #fff; text-align: center; line-height: 1.1; }
+.p-name { font-family: "Syne", sans-serif; font-size: 10px; font-weight: 800; color: var(--txt); text-align: center; line-height: 1.1; }
 .p-xp   { font-family: "JetBrains Mono", monospace; font-size: 8px; font-weight: 800; }
 .rank-1 .p-xp { color: var(--acc3); text-shadow: 0 0 8px rgba(255,209,102,0.4); }
 .rank-2 .p-xp { color: #d0d0d0; }
@@ -261,10 +261,10 @@
 }
 .shout-avatar { font-size: 16px; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; background: rgba(255,255,255,0.05); border-radius: 7px; flex-shrink: 0; }
 .shout-info { flex: 1; min-width: 0; }
-.shout-name { font-family: "Syne", sans-serif; font-size: 11px; font-weight: 800; color: #fff; }
+.shout-name { font-family: "Syne", sans-serif; font-size: 11px; font-weight: 800; color: var(--txt); }
 .shout-stat { font-size: 8px; color: var(--mut); font-family: "JetBrains Mono", monospace; margin-top: 1px; }
 .shout-badge { font-size: 7.5px; font-weight: 800; font-family: "JetBrains Mono", monospace; padding: 3px 7px; border-radius: 9px; letter-spacing: 0.5px; white-space: nowrap; flex-shrink: 0; }
-.shout-badge.green  { background: rgba(78,255,176,0.12);  color: var(--acc);  border: 1px solid rgba(78,255,176,0.3); }
+.shout-badge.green  { background: var(--b);  color: var(--acc);  border: 1px solid var(--b2); }
 .shout-badge.yellow { background: rgba(255,209,102,0.12); color: var(--acc3); border: 1px solid rgba(255,209,102,0.3); }
 .shout-badge.red    { background: rgba(255,107,107,0.12); color: var(--acc4); border: 1px solid rgba(255,107,107,0.3); }
 
@@ -273,18 +273,18 @@
 .battle-body { flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 6px; min-height: 0; }
 .battle-vs-row { display: flex; align-items: stretch; gap: 6px; }
 .battle-player {
-  flex: 1; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.09);
+  flex: 1; background: var(--card); border: 1px solid var(--b);
   border-radius: 10px; padding: 7px 6px;
   display: flex; flex-direction: column; align-items: center; gap: 2px; position: relative;
 }
 .battle-player.winner {
-  border-color: rgba(78,255,176,0.38); background: rgba(78,255,176,0.07);
-  box-shadow: 0 0 16px rgba(78,255,176,0.08), inset 0 1px 0 rgba(78,255,176,0.1);
+  border-color: var(--b2); background: var(--card2);
+  box-shadow: 0 0 16px var(--tv-hud-glow), inset 0 1px 0 var(--b2);
 }
 .bp-you-tag {
   position: absolute; top: 4px; left: 5px;
   font-family: "JetBrains Mono", monospace; font-size: 6px; font-weight: 800;
-  color: var(--acc); background: rgba(78,255,176,0.15); border-radius: 3px; padding: 1px 4px;
+  color: var(--acc); background: var(--b); border-radius: 3px; padding: 1px 4px;
 }
 .bp-rival-tag {
   position: absolute; top: 4px; left: 5px;
@@ -292,9 +292,9 @@
   color: var(--acc4); background: rgba(255,107,107,0.15); border-radius: 3px; padding: 1px 4px;
 }
 .bp-avi   { font-size: 20px; line-height: 1; margin-top: 6px; }
-.bp-name  { font-size: 10px; font-weight: 800; color: #fff; font-family: "Syne", sans-serif; text-align: center; }
+.bp-name  { font-size: 10px; font-weight: 800; color: var(--txt); font-family: "Syne", sans-serif; text-align: center; }
 .bp-score { font-family: "JetBrains Mono", monospace; font-size: 15px; font-weight: 800; color: rgba(255,255,255,0.5); line-height: 1; }
-.battle-player.winner .bp-score { color: var(--acc); text-shadow: 0 0 10px rgba(78,255,176,0.35); }
+.battle-player.winner .bp-score { color: var(--acc); text-shadow: 0 0 10px var(--tv-hud-glow); }
 .bp-acc { font-size: 7px; color: var(--mut); font-family: "JetBrains Mono", monospace; text-align: center; }
 
 .vs-badge {
@@ -355,7 +355,7 @@
 .honor-rank.you-rank { color: var(--acc) !important; }
 .honor-avi  { font-size: 14px; width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; background: rgba(255,255,255,0.05); border-radius: 5px; flex-shrink: 0; margin-right: 5px; }
 .honor-info { flex: 1; min-width: 0; padding: 5px 0; }
-.honor-name { font-family: "Syne", sans-serif; font-size: 9.5px; font-weight: 800; color: #fff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; line-height: 1.15; }
+.honor-name { font-family: "Syne", sans-serif; font-size: 9.5px; font-weight: 800; color: var(--txt); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; line-height: 1.15; }
 .you-tag { font-family: "JetBrains Mono", monospace; font-size: 6px; font-weight: 800; color: var(--acc); background: rgba(78,255,176,0.15); border-radius: 3px; padding: 0 3px; vertical-align: middle; margin-left: 3px; }
 .honor-meta { font-family: "JetBrains Mono", monospace; font-size: 6.5px; color: var(--mut); margin-top: 1px; }
 
@@ -380,7 +380,7 @@
 #sl4 { text-align: center; }
 .prem-tag      { font-family: "JetBrains Mono", monospace; font-size: 8px; font-weight: 800; color: var(--acc3); letter-spacing: 1.5px; margin-bottom: 5px; }
 .prem-ic-tv    { font-size: 26px; margin-bottom: 4px; }
-.prem-title-tv { font-family: "Syne", sans-serif; font-size: 13px; font-weight: 800; color: #fff; margin-bottom: 3px; }
+.prem-title-tv { font-family: "Syne", sans-serif; font-size: 13px; font-weight: 800; color: var(--txt); margin-bottom: 3px; }
 .prem-body-tv  { font-size: 8.5px; color: var(--mut); margin-bottom: 8px; font-family: "JetBrains Mono", monospace; line-height: 1.4; }
 .prem-btn-tv {
   background: linear-gradient(135deg, var(--acc3), #ff9f43); border: none; border-radius: 8px;

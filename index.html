@@ -53,6 +53,152 @@
       @keyframes _spin {
         to { transform: rotate(360deg); }
       }
+      /* ── Bear Popup — CoC Style ─────────────── */
+      .bear-overlay {
+        position: absolute;
+        inset: 0;
+        z-index: 800;
+        pointer-events: none;
+        /* NO dark backdrop — bear floats freely */
+      }
+      .bear-overlay.active { pointer-events: all; }
+
+      /* Bear character — slides in from right, sits mid-screen */
+      .bear-char {
+        position: absolute;
+        right: -8px;
+        top: 50%;
+        /* start fully off right edge via transform (GPU, no overflow clipping issues) */
+        transform: translateX(110%) translateY(-50%);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 175px;
+        transition: transform 0.45s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        cursor: pointer;
+        z-index: 2;
+      }
+      .bear-overlay.active .bear-char {
+        transform: translateX(0) translateY(-50%);
+      }
+
+      /* CoC speech bubble ABOVE head */
+      .bear-coc-bubble {
+        position: relative;
+        background: #fff;
+        border-radius: 14px;
+        padding: 10px 12px;
+        margin-bottom: 6px;
+        width: 170px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.5), 0 0 0 2.5px rgba(0,0,0,0.7);
+        text-align: center;
+        transform: scale(0.7) translateY(20px);
+        opacity: 0;
+        transition: transform 0.3s cubic-bezier(0.175,0.885,0.32,1.275) 0.3s,
+                    opacity 0.25s ease 0.3s;
+      }
+      .bear-overlay.active .bear-coc-bubble {
+        transform: scale(1) translateY(0);
+        opacity: 1;
+      }
+      /* Triangle pointer pointing DOWN toward bear's head */
+      .bear-coc-bubble::after {
+        content: "";
+        position: absolute;
+        bottom: -10px;
+        left: 50%;
+        transform: translateX(-50%);
+        border: 10px solid transparent;
+        border-top-color: #fff;
+        border-bottom: 0;
+        filter: drop-shadow(0 2px 1px rgba(0,0,0,0.3));
+      }
+      /* Dark outline for bubble pointer */
+      .bear-coc-bubble::before {
+        content: "";
+        position: absolute;
+        bottom: -13px;
+        left: 50%;
+        transform: translateX(-50%);
+        border: 12px solid transparent;
+        border-top-color: rgba(0,0,0,0.6);
+        border-bottom: 0;
+        z-index: -1;
+      }
+
+      .bear-coc-tag {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 7.5px;
+        font-weight: 900;
+        letter-spacing: 1px;
+        color: #6e3fff;
+        text-transform: uppercase;
+        margin-bottom: 4px;
+      }
+      .bear-coc-head {
+        font-family: "Syne", sans-serif;
+        font-size: 14px;
+        font-weight: 900;
+        color: #111;
+        line-height: 1.15;
+        margin-bottom: 4px;
+      }
+      .bear-coc-body {
+        font-size: 10px;
+        color: #444;
+        line-height: 1.45;
+        margin-bottom: 8px;
+      }
+      .bear-coc-btn {
+        width: 100%;
+        background: linear-gradient(135deg, #6e3fff, #b44fff);
+        color: #fff;
+        border: none;
+        padding: 8px 10px;
+        border-radius: 10px;
+        font-size: 11px;
+        font-weight: 900;
+        cursor: pointer;
+        font-family: "Plus Jakarta Sans", sans-serif;
+        box-shadow: 0 3px 10px rgba(110,63,255,0.4);
+      }
+      .bear-coc-dismiss {
+        font-size: 9px;
+        color: #888;
+        margin-top: 4px;
+        cursor: pointer;
+        font-family: "Plus Jakarta Sans", sans-serif;
+        background: none;
+        border: none;
+        width: 100%;
+      }
+
+      /* Bear image — mix-blend-mode:screen knocks out black bg */
+      .bear-img-wrap {
+        position: relative;
+        width: 150px;
+        height: 150px;
+        flex-shrink: 0;
+      }
+      .bear-img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        mix-blend-mode: screen;
+        filter: drop-shadow(0 0 16px rgba(100,180,255,0.5))
+                drop-shadow(0 0 6px rgba(255,255,255,0.2));
+      }
+
+      @keyframes bearShake {
+        0%   { transform: rotate(0deg) scale(1); }
+        15%  { transform: rotate(-10deg) scale(1.08); }
+        30%  { transform: rotate(9deg) scale(1.08); }
+        45%  { transform: rotate(-6deg) scale(1.04); }
+        60%  { transform: rotate(5deg) scale(1.02); }
+        75%  { transform: rotate(-2deg); }
+        100% { transform: rotate(0deg) scale(1); }
+      }
+      .bear-shake { animation: bearShake 0.65s cubic-bezier(0.36,0.07,0.19,0.97) both; }
     </style>
 
     <!-- ════ QUIZ DATA ════════════════════════════════════════════════════════ -->
@@ -124,12 +270,25 @@
           <div style="position:absolute;top:7px;right:12px;width:7px;height:7px;background:var(--gold);border-radius:50%;border:1.5px solid var(--bg);box-shadow:0 0 5px var(--gold);"></div>
         </button>
       </div>
+      <!-- ══ ANGRY BEAR POPUP — CoC Style (inside .phone so position:absolute works) ══ -->
+      <div class="bear-overlay" id="bearOverlay" onclick="closeBearPopup()">
+        <div class="bear-char" id="bearChar" onclick="event.stopPropagation()">
+          <div class="bear-coc-bubble" id="bearBubble">
+            <div class="bear-coc-tag"  id="bearTag">PREMIUM ONLY</div>
+            <div class="bear-coc-head" id="bearHead">GRRRR! PAY UP!</div>
+            <div class="bear-coc-body" id="bearBody">This feature is locked.</div>
+            <button class="bear-coc-btn" onclick="closeBearPopup(); doBuy('Pro Annual','₹499')">👑 Unlock Pro — ₹499/yr</button>
+            <button class="bear-coc-dismiss" onclick="closeBearPopup()">Maybe later 🐾</button>
+          </div>
+          <div class="bear-img-wrap" id="bearImgWrap">
+            <img src="assets/angry_bear-removebg-preview.png" alt="Angry Bear" class="bear-img" />
+          </div>
+        </div>
+      </div>
+
     </div><!-- /phone -->
 
-    <div class="xp-toast" id="xpToast"></div>
-    <div class="conf-w" id="confW"></div>
-
-    <!-- ════ MAIN APP SCRIPT ═════════════════════════════════════════════════ -->
+        <!-- ════ MAIN APP SCRIPT ═════════════════════════════════════════════════ -->
     <script>
       "use strict";
 
@@ -368,7 +527,7 @@
               <div style="width:${xpPct}%;height:100%;background:${g.barGrad};"></div>
             </div>
           </div>
-          <div style="margin-top:5px;font-size:9px;color:rgba(200,210,255,0.7);">${d.taunt}</div>`;
+          <div style="margin-top:5px;font-size:9px;color:var(--mut);">${d.taunt}</div>`;
           showSlide("sl-podium");
         };
 
@@ -377,12 +536,15 @@
           const el = document.getElementById("sl-shoutout");
           if (!el) return;
           el.innerHTML = `<div style="padding:8px;">
-            <div style="font-size:10px;font-weight:800;color:#00d4ff;margin-bottom:6px;">📣 HONOURABLE MENTIONS</div>
-            <div style="display:flex;align-items:center;gap:10px;background:rgba(255,255,255,0.05);padding:10px;border-radius:12px;">
-              <div style="width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,${d.color},#000);display:flex;align-items:center;justify-content:center;font-weight:900;color:#fff;">${d.av}</div>
-              <div><div style="font-size:12px;font-weight:800;">${d.name}</div><div style="font-size:10px;color:rgba(255,255,255,0.5);">${d.xp} XP</div></div>
+            <div style="font-size:10px;font-weight:800;color:var(--acc2);margin-bottom:6px;font-family:'JetBrains Mono',monospace;letter-spacing:0.8px;">📣 HONOURABLE MENTIONS</div>
+            <div style="display:flex;align-items:center;gap:10px;background:var(--card);border:1px solid var(--b);padding:10px;border-radius:12px;">
+              <div style="width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,${d.color},#000);display:flex;align-items:center;justify-content:center;font-weight:900;color:#fff;font-family:'Syne',sans-serif;">${d.av}</div>
+              <div>
+                <div style="font-size:12px;font-weight:800;color:var(--txt);font-family:'Syne',sans-serif;">${d.name}</div>
+                <div style="font-size:10px;color:var(--mut);font-family:'JetBrains Mono',monospace;">${d.xp} XP</div>
+              </div>
             </div>
-            <div style="margin-top:8px;font-size:10px;line-height:1.4;">${d.msg}</div>
+            <div style="margin-top:8px;font-size:10px;line-height:1.4;color:var(--txt);">${d.msg}</div>
           </div>`;
           showSlide("sl-shoutout");
         };
@@ -399,25 +561,25 @@
 
           el.innerHTML = `
             <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
-              <div style="font-size:10px;font-weight:800;color:#00d4ff;font-family:'JetBrains Mono',monospace;letter-spacing:1px;">
+              <div style="font-size:10px;font-weight:800;color:var(--acc2);font-family:'JetBrains Mono',monospace;letter-spacing:1px;">
                 📺 GK FLASH CARD
               </div>
-              <div style="font-size:9px;color:rgba(255,255,255,0.4);font-family:'JetBrains Mono',monospace;">
+              <div style="font-size:9px;color:var(--mut);font-family:'JetBrains Mono',monospace;">
                 ${q.tag || "UPSC PREP"}
               </div>
             </div>
-            <div style="font-family:'Syne',sans-serif;font-size:14px;font-weight:800;line-height:1.35;color:#fff;margin-bottom:12px;">
+            <div style="font-family:'Syne',sans-serif;font-size:14px;font-weight:800;line-height:1.35;color:var(--txt);margin-bottom:12px;">
               ${q.question}
             </div>
             <div style="
-              background:rgba(0,255,140,0.12);
-              border:1px solid rgba(0,255,140,0.35);
+              background:var(--b);
+              border:1px solid var(--b2);
               padding:10px 12px;
               border-radius:10px;
               font-family:'JetBrains Mono',monospace;
               font-size:13px;
               font-weight:800;
-              color:#00ff88;
+              color:var(--acc);
             ">
               ✅ ${q.answer}
             </div>
@@ -564,6 +726,52 @@
 
         window.doBuy = function (plan, price) {
           toast("🛒 Opening checkout for " + plan + " at " + price);
+        };
+
+        // ── Bear Popup ────────────────────────────────────────────────────
+        const _bearMsgs = {
+          themes: {
+            tag:  "🎨 PREMIUM FEATURE",
+            head: "STAY OUT OF MY DEN!",
+            body: "10 stunning themes are hibernating behind a paywall. Wake them up with Pro — the bear demands it."
+          },
+          adfree: {
+            tag:  "🚫 PREMIUM FEATURE",
+            head: "ADS? REALLY?!",
+            body: "You're sitting through ads while I'm sitting here FURIOUS. Go ad-free. The bear has spoken."
+          },
+          affairs: {
+            tag:  "📰 PREMIUM FEATURE",
+            head: "NO NEWS FOR YOU!",
+            body: "Daily current affairs are gated. The bear reads everything. You read nothing. Fix that with Pro."
+          },
+          quiz: {
+            tag:  "⚡ PREMIUM FEATURE",
+            head: "YOU CAN'T SIT WITH US!",
+            body: "Pro quizzes, survival mode and weekly battles are locked. The bear challenges you to unlock them."
+          }
+        };
+
+        window.showBearPopup = function(feature) {
+          const msg = _bearMsgs[feature] || _bearMsgs.themes;
+          document.getElementById("bearTag").textContent  = msg.tag;
+          document.getElementById("bearHead").textContent = msg.head;
+          document.getElementById("bearBody").textContent = msg.body;
+
+          const overlay = document.getElementById("bearOverlay");
+          const imgWrap = document.getElementById("bearImgWrap");
+
+          overlay.classList.add("active");
+
+          // Shake bear after it slides in
+          setTimeout(() => {
+            imgWrap.classList.add("bear-shake");
+            setTimeout(() => imgWrap.classList.remove("bear-shake"), 700);
+          }, 480);
+        };
+
+        window.closeBearPopup = function() {
+          document.getElementById("bearOverlay").classList.remove("active");
         };
 
         // ── Toast & Confetti ──────────────────────────────────────────────
