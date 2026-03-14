@@ -583,6 +583,14 @@ window.showResults = function () {
     qzXP +
     '</div><div class="qzr-stat-l">XP Earned</div></div>';
   if (pct >= 80) confetti();
+
+  // 🐻 Jump Bear celebration
+  if (typeof JumpBear !== "undefined") {
+    JumpBear.celebrate({ score: qzCorrect, total: qzTotal });
+  }
+
+  if (typeof SadBear !== "undefined")
+    SadBear.appear({ score: qzCorrect, total: qzTotal });
 };
 
 window.restartQuiz = function () {
