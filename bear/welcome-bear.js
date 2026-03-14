@@ -1,31 +1,58 @@
 (function () {
 
-  var MSGS = [
-    { top: "⚡ YOUR XP",        main: "2,840 XP earned!\nRank #4 this week." },
-    { top: "🔥 STREAK",         main: "12-day streak!\nDon't break it today." },
-    { top: "📝 QUICK QUIZ",     main: "Try 5 Polity Qs\nbefore lunch!" },
-    { top: "🎯 ACCURACY",       main: "74% accuracy —\nTop 10% nationally!" },
-    { top: "💪 GRIND TIME",     main: "130 XP behind\nMeena — close it!" },
-    { top: "🏆 LEADERBOARD",    main: "#4 of 1,248\nPush for #3 today!" },
-    { top: "🧠 STUDY TIP",      main: "Economy is weak\nat 20%. Fix it now." },
-    { top: "👋 WELCOME BACK",   main: "Ready to grind?\nYour rivals are!" },
-    { top: "⏰ REMINDER",       main: "No quiz yet today.\nLet's go — 5 mins!" },
-    { top: "🚀 UPSC 2026",      main: "310 days left.\nEvery session counts." },
-    { top: "👀 PSST HEY",         main: "Still here?\nGood. Keep grinding." },
-    { top: "☕ GOOD MORNING",     main: "Bear is up early.\nAre you?" },
-    { top: "😤 NO EXCUSES",       main: "Bear studied today.\nWhat about you?" },
-    { top: "🐻 BEAR SAYS",        main: "Close YouTube.\nOpen the quiz. Now." },
-    { top: "🎉 HEY ARJUN!",       main: "You showed up.\nThat already counts." },
-    { top: "🌙 LATE NIGHT?",      main: "Bear approves the\nlate night grind!" },
-    { top: "💬 JUST SAYING",      main: "Toppers study now.\nJust saying..." },
-    { top: "🙈 DON'T PANIC",     main: "310 days is\nactually a lot. Breathe." },
-    { top: "🐾 YO ARJUN",         main: "Bear misses you\nwhen you skip days." },
-    { top: "😴 WAKE UP",          main: "Bear hibernates.\nYou cannot. Study." },
-    { top: "🎯 SMALL WINS",       main: "5 questions = \n+25 XP. Easy money." },
-    { top: "🔑 PRO TIP",          main: "Polity is 30% of\nPrelims. Just saying." },
-    { top: "🤙 KEEP IT UP",       main: "Rank #4 and rising.\nBear is proud." },
-    { top: "😠 BEAR IS WATCHING", main: "Did you skip\nyesterday? Hmm." }
-  ];
+  // Dynamic message generator based on user's actual progress
+  function generateBearMessage() {
+    var msgs = [];
+    
+    // Time based
+    var hr = new Date().getHours();
+    if (hr >= 22 || hr < 4) msgs.push({ top: "🌙 LATE NIGHT?", main: "Late night grinding?\\nBear approves!" });
+    if (hr >= 4 && hr <= 8) msgs.push({ top: "☕ EARLY BIRD", main: "Up early to study?\\nThat's how you win." });
+    
+    // Daily quiz check
+    var lastDaily = localStorage.getItem('upsc_daily_played');
+    if (lastDaily !== new Date().toDateString()) {
+      msgs.push({ top: "📅 DAILY QUIZ", main: "You haven't played\\nthe Daily Quiz yet!" });
+    } else {
+      msgs.push({ top: "🔥 DAILY DONE", main: "Daily quiz completed!\\nGreat consistency." });
+    }
+
+    // XP based
+    var xp = window.UPSC_USER_XP || 0;
+    if (xp > 0) {
+      msgs.push({ top: "⚡ YOUR XP", main: xp.toLocaleString() + " XP earned!\\nKeep pushing up!" });
+    } else {
+      msgs.push({ top: "👋 WELCOME!", main: "Ready to earn some XP?\\nLet's start a quiz." });
+    }
+    
+    // Mastery based
+    var m = window.UPSC_MASTERY || {};
+    var bestSub = null;
+    var worstSub = null;
+    var bestPct = -1;
+    var worstPct = 101;
+    
+    Object.keys(m).forEach(function(k) {
+      if (m[k].t > 2) { // must have answered at least 3 questions
+        var p = Math.round((m[k].c / m[k].t) * 100);
+        var name = k.charAt(0).toUpperCase() + k.slice(1);
+        if (p > bestPct) { bestPct = p; bestSub = name; }
+        if (p < worstPct) { worstPct = p; worstSub = name; }
+      }
+    });
+
+    if (bestSub && bestPct >= 65) {
+      msgs.push({ top: "🏆 PRO TIP", main: "You're a PRO at " + bestSub + "\\n(" + bestPct + "% accuracy)!" });
+    }
+    if (worstSub && worstPct <= 45) {
+      msgs.push({ top: "🧠 STUDY TIP", main: "Focus on " + worstSub + " today.\\nIt's at " + worstPct + "%. Let's fix it." });
+    }
+    if (!bestSub) {
+      msgs.push({ top: "🎯 NEW JOURNEY", main: "Complete a Topic Quiz\\nto analyze your mastery!" });
+    }
+
+    return msgs[Math.floor(Math.random() * msgs.length)];
+  }
 
   var FIRST_DELAY   = 2400;
   var PEEK_DURATION = 4800;
@@ -145,7 +172,7 @@
     var topEl  = document.getElementById("wbTop");
     var mainEl = document.getElementById("wbMain");
     if (!wrap) return;
-    var m = MSGS[Math.floor(Math.random() * MSGS.length)];
+    var m = generateBearMessage();
     topEl.textContent = m.top;
     mainEl.innerHTML  = m.main.replace(/\n/g, "<br>");
     wrap.classList.add("wb-on");

@@ -9,7 +9,7 @@
               <p>UPSC·TV</p>
               <span id="tvChNum">CH·01</span>
             </div>
-            <div class="tv-clock-el" id="tvClock">09:41:00</div>
+            <div class="tv-clock-el" id="tvClock">09:41 AM</div>
             <div class="tv-signal">
               <div class="tsig-1"></div>
               <div class="tsig-2"></div>
@@ -32,7 +32,7 @@
                 this week · Accuracy 74%
               </div>
               <div class="bn-badges">
-                <span class="bn-badge">⚡ 2,840 XP</span>
+                <span class="bn-badge">⚡ <span class="sync-xp">2,840</span> XP</span>
                 <span class="bn-badge">🎯 74% ACC</span>
                 <span class="bn-badge">🔥 12 DAYS</span>
                 <span class="bn-badge" style="border-color:rgba(78,255,176,0.4);color:var(--acc)">▲ +3 RANKS</span>
@@ -109,7 +109,7 @@
                     <div class="bp-avi">🐯</div>
                     <div class="bp-name">Arjun S.</div>
                     <div class="bp-score">#4</div>
-                    <div class="bp-acc">2,840 XP · 🔥 12d</div>
+                    <div class="bp-acc"><span class="sync-xp">2,840</span> XP · 🔥 <span class="sync-streak">12</span>d</div>
                   </div>
                   <div class="vs-badge">VS</div>
                   <div class="battle-player">
@@ -159,11 +159,11 @@
                   </div>
                   <div class="honor-right">
                     <div class="honor-xp-row">
-                      <span class="honor-xp">2,840</span>
+                      <span class="honor-xp sync-xp">2,840</span>
                       <span class="honor-mv up">▲+3</span>
                     </div>
-                    <div class="honor-bar-wrap"><div class="honor-bar" style="width:62%"></div></div>
-                    <div class="honor-rival">vs <strong>Meena S.</strong> –130 XP</div>
+                    <div class="honor-bar-wrap"><div class="honor-bar sync-xp-bar" style="width:0%"></div></div>
+                    <div class="honor-rival">vs <strong>Meena S.</strong> –<span class="sync-xp-rem">130</span> XP</div>
                   </div>
                 </div>
                 <div class="honor-row">
@@ -259,7 +259,7 @@
   <div class="stats-row">
     <div class="stat glass">
       <div class="si">⚡</div>
-      <div class="sv sv1">2,840</div>
+      <div class="sv sv1 sync-xp">2,840</div>
       <div class="sl">XP Total</div>
     </div>
     <div class="stat glass">
@@ -283,14 +283,14 @@
         <div style="font-size:11px;color:var(--mut);margin-top:2px;">660 XP to Level 9</div>
       </div>
       <div style="font-family:'JetBrains Mono',monospace;font-size:14px;font-weight:700;color:var(--acc3);">
-        2,840
+        <span class="sync-xp">2,840</span>
       </div>
     </div>
     <div class="xp-track">
-      <div class="xp-fill" id="hXpFill" style="width:0%"></div>
+      <div class="xp-fill sync-xp-bar" id="hXpFill" style="width:0%"></div>
     </div>
     <div style="display:flex;justify-content:space-between;margin-top:5px;font-size:10px;color:var(--mut);">
-      <span>2,840 / 3,500 XP</span><span>81% to next level</span>
+      <span><span class="sync-xp">2,840</span> / 3,500 XP</span><span class="sync-xp-rem">660</span> to Level 9
     </div>
   </div>
 
@@ -301,27 +301,27 @@
     <div class="chip glass" onclick="switchTab('learn')">
       <div class="chip-i">🏛️</div>
       <div class="chip-n">History</div>
-      <div class="chip-b"><div class="chip-f" style="width:65%"></div></div>
+      <div class="chip-b"><div class="chip-f mast-history-bar" style="width:0%"></div></div>
     </div>
     <div class="chip glass" onclick="switchTab('learn')">
       <div class="chip-i">🗺️</div>
       <div class="chip-n">Geo</div>
-      <div class="chip-b"><div class="chip-f" style="width:40%"></div></div>
+      <div class="chip-b"><div class="chip-f mast-geography-bar" style="width:0%"></div></div>
     </div>
     <div class="chip glass" onclick="switchTab('learn')">
       <div class="chip-i">📜</div>
       <div class="chip-n">Polity</div>
-      <div class="chip-b"><div class="chip-f" style="width:30%"></div></div>
+      <div class="chip-b"><div class="chip-f mast-polity-bar" style="width:0%"></div></div>
     </div>
     <div class="chip glass" onclick="switchTab('learn')">
       <div class="chip-i">📈</div>
       <div class="chip-n">Economy</div>
-      <div class="chip-b"><div class="chip-f" style="width:20%"></div></div>
+      <div class="chip-b"><div class="chip-f mast-economy-bar" style="width:0%"></div></div>
     </div>
     <div class="chip glass" onclick="switchTab('learn')">
       <div class="chip-i">🔬</div>
       <div class="chip-n">Science</div>
-      <div class="chip-b"><div class="chip-f" style="width:55%"></div></div>
+      <div class="chip-b"><div class="chip-f mast-science-bar" style="width:0%"></div></div>
     </div>
   </div>
 

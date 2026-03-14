@@ -26,26 +26,14 @@
       <div class="gc-xp">+300 XP</div>
     </div>
     <div
-      class="game-card gc-gold"
-      onclick="switchTab('premium')"
-      style="position: relative"
-    >
-      <div class="gc-ic">🥇</div>
-      <div class="gc-name">Weekly Battle</div>
-      <div class="gc-lock">👑</div>
-      <div class="gc-meta">20 Qs · ranked</div>
-      <div class="gc-xp gc-gold">+500 XP</div>
-    </div>
-    <div
       class="game-card gc-red"
-      onclick="switchTab('premium')"
+      onclick="showSubjectPicker()"
       style="position: relative"
     >
-      <div class="gc-ic">❤️</div>
-      <div class="gc-name">Survival</div>
-      <div class="gc-lock">👑</div>
-      <div class="gc-meta">3 lives · infinite</div>
-      <div class="gc-xp">+∞ XP</div>
+      <div class="gc-ic">📚</div>
+      <div class="gc-name">Topic Mastery</div>
+      <div class="gc-meta">10 Qs · pick subject</div>
+      <div class="gc-xp" style="border-color:var(--b2);">+XP based</div>
     </div>
   </div>
 
@@ -152,17 +140,10 @@
         <div class="qmc-desc">15 Qs · 8s each · combo multiplier</div>
         <div class="qmc-tags"><span>+50 XP/Q</span><span>Combo ×4</span></div>
       </div>
-      <div class="qz-mode-card qmc-topic" onclick="startQuizMode('weekly')">
-        <div class="qmc-glow"></div>
-        <div class="qmc-ic">🥇</div>
-        <div class="qmc-name">Weekly Battle</div>
-        <div class="qmc-desc">20 Qs · ranked globally · reset Monday</div>
-        <div class="qmc-tags"><span>+500 XP</span><span>Ranked</span></div>
-      </div>
     </div>
     <div
-      class="qz-mode-card qmc-survival"
-      onclick="startQuizMode('survival')"
+      class="qz-mode-card qmc-topic"
+      onclick="showSubjectPicker()"
       style="
         margin-top: 9px;
         margin-left: 14px;
@@ -171,13 +152,13 @@
       "
     >
       <div class="qmc-glow"></div>
-      <div class="qmc-ic">❤️</div>
-      <div class="qmc-name">Survival Mode</div>
+      <div class="qmc-ic">📚</div>
+      <div class="qmc-name">Topic Mastery</div>
       <div class="qmc-desc">
-        3 lives · infinite questions · how far can you go?
+        Pick a specific subject to master
       </div>
       <div class="qmc-tags">
-        <span>+∞ XP</span><span>3 Lives</span><span>High Score</span>
+        <span>+XP Based</span><span>10 Qs</span>
       </div>
     </div>
   </div>
